@@ -1,0 +1,10 @@
+export(addsamptree, canopy.BIC, canopy.output, canopy.plottree,
+       canopy.post, canopy.sample, getclonalcomposition, getCMCm,
+       getCZ, getlikelihood, getQ, getVAF, getZ, initialcna,
+       initialcnacopy, initialP, initialsna, plotpostlikelihood,
+       sampcna, sampcnacopy, sampP, sampsna, sortcna)
+import(ape, fields)
+importFrom("grDevices", "dev.off", "pdf")
+importFrom("graphics", "abline", "axis", "image", "layout", "par", "plot",
+           "points", "text", "title")
+importFrom("stats", "dnorm", "rmultinom", "runif")
