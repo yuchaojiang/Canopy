@@ -9,11 +9,6 @@
 install.packages('Canopy')
 ```
 
-## Install the development version from GitHub:
-```r
-devtools::install_github('yuchaojiang/Canopy/pkg/Canopy')
-```
-
 
 Package: Canopy
 
