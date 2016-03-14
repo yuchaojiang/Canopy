@@ -6,19 +6,19 @@
 Accessing Intra-Tumor Heterogeneity and Tracking Longitudinal and Spatial Clonal Evolutionary History by Next-Generation Sequencing
 
 
-## Author:
+## Author
 Yuchao Jiang, Nancy R. Zhang
 
-## Maintainer:
+## Maintainer
 Yuchao Jiang <yuchaoj@wharton.upenn.edu>
 
 
-## Install the current release from CRAN:
+## Install the current release from CRAN
 ```r
 install.packages('Canopy')
 ```
 
-## Description:
+## Description
 
   A statistical framework and computational procedure for identifying
   the sub-populations within a tumor, determining the mutation profiles of each 
@@ -35,8 +35,6 @@ install.packages('Canopy')
 
 
 
-Depends: R (>= 3.2), ape, fields
 
-Imports: grDevices, graphics, stats
-
-URL: https://sites.google.com/a/cornell.edu/yuchaojiang/home/research/canopy
+## URL
+https://sites.google.com/a/cornell.edu/yuchaojiang/home/research/canopy
