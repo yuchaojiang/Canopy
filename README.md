@@ -2,6 +2,19 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/Canopy)](http://cran.rstudio.com/package=Canopy)
 
 # Canopy
+
+
+## Install the current release from CRAN:
+```r
+install.packages('Canopy')
+```
+
+## Install the development version from GitHub:
+```r
+devtools::install_github('yuchaojiang/Canopy/pkg/Canopy')
+```
+
+
 Package: Canopy
 
 Type: Package
