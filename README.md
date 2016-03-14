@@ -3,26 +3,24 @@
 
 # Canopy
 
+Accessing Intra-Tumor Heterogeneity and Tracking Longitudinal and Spatial Clonal Evolutionary History by Next-Generation Sequencing
+
+
+## Author:
+Yuchao Jiang, Nancy R. Zhang
+
+## Maintainer:
+Yuchao Jiang <yuchaoj@wharton.upenn.edu>
+
 
 ## Install the current release from CRAN:
 ```r
 install.packages('Canopy')
 ```
 
+## Description:
 
-Package: Canopy
-
-Type: Package
-Title: Accessing Intra-Tumor Heterogeneity and Tracking Longitudinal and Spatial
-  Clonal Evolutionary History by Next-Generation Sequencing
-
-Version: 1.0.2
-
-Author: Yuchao Jiang, Nancy R. Zhang
-
-Maintainer: Yuchao Jiang <yuchaoj@wharton.upenn.edu>
-
-Description: A statistical framework and computational procedure for identifying
+  A statistical framework and computational procedure for identifying
   the sub-populations within a tumor, determining the mutation profiles of each 
   subpopulation, and inferring the tumor's phylogenetic history. The input are 
   variant allele frequencies (VAFs) of somatic single nucleotide alterations 
@@ -35,7 +33,7 @@ Description: A statistical framework and computational procedure for identifying
   multiple evolutionary configurations consistent with the data, Canopy outputs 
   all configurations along with their confidence assessment.
 
-License: GPL-2
+
 
 Depends: R (>= 3.2), ape, fields
 
