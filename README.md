@@ -18,6 +18,14 @@ Yuchao Jiang <yuchaoj@wharton.upenn.edu>
 install.packages('Canopy')
 ```
 
+## Install the devel version from GitHub
+```r
+install.packages("devtools")
+library(devtools)
+install_github("yuchaojiang/Canopy")
+```
+
+
 ## Description
 
   A statistical framework and computational procedure for identifying
