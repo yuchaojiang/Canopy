@@ -22,7 +22,7 @@ install.packages('Canopy')
 ```r
 install.packages("devtools")
 library(devtools)
-install_github("yuchaojiang/Canopy")
+install_github("yuchaojiang/Canopy/package")
 ```
 
 
