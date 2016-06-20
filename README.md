@@ -42,7 +42,11 @@ install_github("yuchaojiang/Canopy/package")
   all configurations along with their confidence assessment.
 
 
+## Google user group (Q&A)
+https://groups.google.com/forum/#!forum/canopy_phylogeny
 
+## Vignettes & demo code
+[CRAN](https://cran.r-project.org/web/packages/Canopy/index.html)
+[Vignettes](https://dl.dropboxusercontent.com/u/34105617/Canopy_vignettes.pdf)
+[Demo code](https://dl.dropboxusercontent.com/u/34105617/Canopy_demo.R)
 
-## URL
-https://sites.google.com/a/cornell.edu/yuchaojiang/home/research/canopy
