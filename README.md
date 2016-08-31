@@ -43,10 +43,9 @@ install_github("yuchaojiang/Canopy/package")
 
 
 ## Google user group (Q&A)
-https://groups.google.com/forum/#!forum/canopy_phylogeny
+https://groups.google.com/d/forum/canopy_phylogeny
 
 ## Vignettes & demo code
 * [CRAN](https://cran.r-project.org/web/packages/Canopy/index.html)
-* [Vignettes](https://dl.dropboxusercontent.com/u/34105617/Canopy_vignettes.pdf)
-* [Demo code](https://dl.dropboxusercontent.com/u/34105617/Canopy_demo.R)
+* [Vignettes](https://cran.rstudio.com/web/packages/Canopy/vignettes/Canopy_vignettes.pdf)
 
