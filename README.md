@@ -42,7 +42,7 @@ install_github("yuchaojiang/Canopy/package")
 
 
 ## Demo code
-* [Demo code](https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_demo.R)
+[Demo code](https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_demo.R)
 
 
 ## Citation
