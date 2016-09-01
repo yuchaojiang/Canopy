@@ -13,19 +13,6 @@ Yuchao Jiang, Nancy R. Zhang
 Yuchao Jiang <yuchaoj@upenn.edu>
 
 
-## Install the current release from CRAN
-```r
-install.packages('Canopy')
-```
-
-## Install the devel version from GitHub
-```r
-install.packages("devtools")
-library(devtools)
-install_github("yuchaojiang/Canopy/package")
-```
-
-
 ## Description
   A statistical framework and computational procedure for identifying
   the sub-populations within a tumor, determining the mutation profiles of each 
@@ -39,6 +26,23 @@ install_github("yuchaojiang/Canopy/package")
   infers their temporal ordering and resolves their phase.  When there are 
   multiple evolutionary configurations consistent with the data, Canopy outputs 
   all configurations along with their confidence assessment.
+
+
+## Install the current release from CRAN
+```r
+install.packages('Canopy')
+```
+
+## Install the devel version from GitHub
+```r
+install.packages("devtools")
+library(devtools)
+install_github("yuchaojiang/Canopy/package")
+```
+
+
+## Demo code
+* [Demo code](https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_demo.R)
 
 
 ## Citation
