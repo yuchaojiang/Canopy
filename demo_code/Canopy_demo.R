@@ -103,6 +103,10 @@ cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
 output.tree = canopy.output(post, config.i, C)
 pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
 canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
+# plot posterior tree with second configuration
+output.tree = canopy.output(post, 2, C)
+canopy.plottree(output.tree,pdf=TRUE,pdf.name=paste(projectname,'_second_config.pdf',sep=''))
+
 
 
 #######################################################
