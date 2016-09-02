@@ -29,8 +29,8 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
     for (treei in 1:length(samptreethin)) {
         samptreethin.lik[treei] = samptreethin[[treei]]$likelihood
     }
-    samptreethin = samptreethin[which((rank(-1 * samptreethin.lik, ties.method = "first")) < 
-        (length(samptreethin)/numchain))]
+    samptreethin = samptreethin[which((rank(-1 * samptreethin.lik, ties.method = "first")) <= 
+        5*(length(samptreethin)/numchain))]
     samptreethin.lik = rep(NA, length(samptreethin))
     for (treei in 1:length(samptreethin)) {
         samptreethin.lik[treei] = samptreethin[[treei]]$likelihood

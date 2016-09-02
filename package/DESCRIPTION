@@ -2,8 +2,7 @@ Package: Canopy
 Type: Package
 Title: Accessing Intra-Tumor Heterogeneity and Tracking Longitudinal and Spatial
   Clonal Evolutionary History by Next-Generation Sequencing
-Version: 1.0.2
-Date: 2015-10-28
+Version: 1.1.1
 Author: Yuchao Jiang, Nancy R. Zhang
 Maintainer: Yuchao Jiang <yuchaoj@wharton.upenn.edu>
 Description: A statistical framework and computational procedure for identifying
@@ -21,4 +20,4 @@ Description: A statistical framework and computational procedure for identifying
 License: GPL-2
 Depends: R (>= 3.2), ape, fields
 Imports: grDevices, graphics, stats
-URL: https://sites.google.com/a/cornell.edu/yuchaojiang/home/research/canopy
+URL: https://github.com/yuchaojiang/Canopy

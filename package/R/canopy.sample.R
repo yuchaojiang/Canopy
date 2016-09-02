@@ -45,8 +45,22 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
             cat("\tRunning chain", numi, "out of", numchain, "...\n")
             ###################################### Tree initialization #####
             text = paste(paste(paste(paste("(", 1:(k - 1), ",", sep = ""), 
-                collapse = ""), k, sep = ""), paste(rep(")", (k - 1)), 
-                collapse = ""), ";", sep = "")
+                                     collapse = ""), k, sep = ""), paste(rep(")", (k - 1)), 
+                                     collapse = ""), ";", sep = "")
+            runif.temp=runif(1)
+            if(k == 5 & runif.temp<0.5){
+                    text = c('(1,((2,3),(4,5)));')
+            }else if(k == 6 & runif.temp < 1/3){
+                text = c('(1,((2,3),(4,(5,6))));')
+            }else if(k == 6 & runif.temp > 2/3){
+                text = c('(1,(2,((3,4),(5,6))));')
+            }else if(k == 7 & runif.temp > 1/4 & runif.temp <= 2/4){
+                text=c('(1,((2,3),(4,(5,(6,7)))));')
+            }else if(k == 7 & runif.temp > 2/4 & runif.temp <= 3/4){
+                text = c('(1,((2,3),((4,5),(6,7))));')
+            }else if(k == 7 & runif.temp > 3/4){
+                text = c('(1,((2,(3,4)),(5,(6,7))));')
+            }
             tree <- read.tree(text = text)
             tree$sna = initialsna(tree, sna.name)
             # if(k>=5){tree$relation=getrelation(tree)}

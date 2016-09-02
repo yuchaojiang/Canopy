@@ -1,9 +1,16 @@
-canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL) {
+canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL, txt = NULL, 
+                           txt.name = NULL) {
     if (is.null(pdf)) {
-        pdf = TRUE
+        pdf = FALSE
+    }
+    if (is.null(txt)){
+        txt = FALSE
     }
     if (pdf & is.null(pdf.name)) {
-        stop("pdf.name has to be provided unless if pdf=FALSE!")
+        stop("pdf.name has to be provided if pdf = TRUE!")
+    }
+    if (txt & is.null(txt.name)){
+        stop("txt.name has to be provided if txt = TRUE")
     }
     if (!is.null(pdf.name)) {
         pdf.split = strsplit(pdf.name, "\\.")[[1]]
@@ -52,11 +59,11 @@ canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL) {
         1), col = "grey")
     for (i in 1:nrow(P)) {
         for (j in 1:ncol(P)) {
-            txt <- sprintf("%0.3f", P[i, j])
+            txt.temp <- sprintf("%0.3f", P[i, j])
             if (P[i, j] <= 0.05 | P[i, j] >= 0.95) {
-                text(i, j, txt, cex = 0.7, col = "white")
+                text(i, j, txt.temp, cex = 0.7, col = "white")
             } else {
-                text(i, j, txt, cex = 0.7)
+                text(i, j, txt.temp, cex = 0.7)
             }
         }
     }
@@ -65,16 +72,25 @@ canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL) {
     # plot mutations
     plot(c(0, 1), c(0, 1), ann = FALSE, bty = "n", type = "n", xaxt = "n", 
         yaxt = "n")
+    txt.output=matrix(nrow=length(edge.label),ncol=1)
     for (i in 1:length(edge.label)) {
-        txt = paste("mut", i, ": ", paste(c(sna.name[which(snaedge == 
+        txt.temp = paste("mut", i, ": ", paste(c(sna.name[which(snaedge == 
             edge.label[i])], cna.name[which(cnaedge == edge.label[i])]), 
             collapse = ", "), sep = "")
-        text(x = 0, y = 0.95 - 0.1 * (i - 1), txt, pos = 4, cex = 1.2)
+        text(x = 0, y = 0.95 - 0.1 * (i - 1), txt.temp, pos = 4, cex = 1.2)
+        txt.output[i,1]=txt.temp
     }
+    
+    if (txt){
+        write.table(txt.output, file = txt.name, col.names = F, row.names = F,
+                    quote = F,sep = '\t')
+    }
+    
     if (!is.null(pdf.name)) {
         text(x = 0.5, y = 0.1, pdf.split[1], font = 2, cex = 1.2)
     }
     if (pdf) {
         dev.off()
     }
+    par(mfrow=c(1,1))
 } 

@@ -1,7 +1,7 @@
 canopy.BIC = function(sampchain, projectname, K, numchain, burnin, thin, 
     pdf = NULL) {
     if (is.null(pdf)) {
-        pdf = TRUE
+        pdf = FALSE
     }
     lik.k = rep(NA, length(K))
     BIC = rep(NA, length(K))
@@ -32,7 +32,7 @@ canopy.BIC = function(sampchain, projectname, K, numchain, burnin, thin,
             samptreelik[treei] = samptreethin[[treei]]$likelihood
         }
         samptreethin = samptreethin[which((rank(-1 * samptreelik,
-            ties.method = "first")) < (length(samptreethin)/numchain))]
+            ties.method = "first")) <= (length(samptreethin)/numchain))]
         samptreelik = rep(NA, length(samptreethin))
         for (treei in 1:length(samptreethin)) {
             samptreelik[treei] = samptreethin[[treei]]$likelihood
