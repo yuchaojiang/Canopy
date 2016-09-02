@@ -43,7 +43,7 @@ K = 3:6 # number of subclones
 numchain = 20 # number of chains with random initiations
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = C, Y = Y, K = K, 
-                          numchain = numchain, simrun = 50000, writeskip = 200,
+                          numchain = numchain, simrun = 100000, writeskip = 200,
                           projectname = projectname, cell.line = TRUE,
                           plot.likelihood = TRUE)
 save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
@@ -122,7 +122,7 @@ epsilonM = toy$epsilonM; epsilonm = toy$epsilonm; Y = toy$Y
 K = 3:6; numchain = 20
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
-                          numchain = numchain, simrun = 50000, writeskip = 200,
+                          numchain = numchain, simrun = 100000, writeskip = 200,
                           projectname = projectname, cell.line = FALSE,
                           plot.likelihood = TRUE)
 save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
