@@ -1,6 +1,3 @@
-setwd('~/Canopy/')
-# setwd("~/Dropbox/Rpackage/Canopy_test")
-
 #######################################################
 #######################################################
 #######                                         #######
@@ -8,7 +5,6 @@ setwd('~/Canopy/')
 #######                                         #######
 #######################################################
 #######################################################
-
 library(Canopy)
 data(toy)
 projectname = 'toy'
@@ -18,7 +14,7 @@ epsilonM = toy$epsilonM; epsilonm = toy$epsilonm; Y = toy$Y
 K = 3:6; numchain = 20
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
-                          numchain = numchain, simrun = 50000, writeskip = 200,
+                          numchain = numchain, simrun = 100000, writeskip = 200,
                           projectname = projectname, cell.line = FALSE,
                           plot.likelihood = TRUE)
 save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
@@ -36,7 +32,7 @@ library(Canopy)
 data(toy)
 projectname='toy'
 
-load(paste(projectname, '_postmcmc_image_new.rda', sep=''))
+load(paste(projectname, '_postmcmc_image.rda', sep=''))
 burnin = 100
 thin = 10
 # If pdf = TRUE, a pdf will be generated.

@@ -1,17 +1,6 @@
 #######################################################
 #######################################################
 #######                                         #######
-#######                installation             #######
-#######                                         #######
-#######################################################
-#######################################################
-
-install.packages('Canopy')
-
-
-#######################################################
-#######################################################
-#######                                         #######
 #######             CNA and SNA input           #######
 #######                                         #######
 #######################################################
@@ -57,7 +46,8 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 #######                                         #######
 #######################################################
 #######################################################
-
+library(Canopy)
+projectname='MDA231'
 load(paste(projectname, '_postmcmc_image.rda', sep=''))
 burnin = 100
 thin = 10
@@ -104,30 +94,5 @@ output.tree = canopy.output(post, config.i, C)
 pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
 canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
 # plot posterior tree with second configuration
-output.tree = canopy.output(post, 2, C)
+output.tree = canopy.output(post, 1, C)
 canopy.plottree(output.tree, pdf=TRUE, pdf.name = paste(projectname, '_second_config.pdf', sep = ''))
-
-
-
-#######################################################
-#######################################################
-#######                                         #######
-#######             Try it yourself             #######
-#######                                         #######
-#######################################################
-#######################################################
-
-library(Canopy)
-data(toy)
-projectname = 'toy'
-R = toy$R; X = toy$X; WM = toy$WM; Wm = toy$Wm
-epsilonM = toy$epsilonM; epsilonm = toy$epsilonm; Y = toy$Y
-
-K = 3:6; numchain = 20
-sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
-                          epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
-                          numchain = numchain, simrun = 100000, writeskip = 200,
-                          projectname = projectname, cell.line = FALSE,
-                          plot.likelihood = TRUE)
-save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
-           compress = 'xz')
