@@ -41,9 +41,8 @@ lines. The parental line as well as the MCP sublines were whole-exome sequenced
 with somatic SNAs and CNAs profiled. \verb@Canopy@ is used to infer metastatic
 phylogeny.\\
 
-\verb@Canopy@'s webpage is \href{https://github.com/yuchaojiang/Canopy}{\textcolor{blue}{here}}. 
-A demo code for \verb@Canopy@ can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_demo.R}{\textcolor{blue}{here}}.
-Script for dataset from the MDA231 study is attached below with step-by-step decomposition and explanation. Online Q\&A forum for
+\verb@Canopy@'s \textbf{webpage} is \href{https://github.com/yuchaojiang/Canopy}{\textcolor{blue}{here}}. A \textbf{demo code} for \verb@Canopy@ can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code}{\textcolor{blue}{here}}.
+Script for dataset from the MDA231 study is attached below with step-by-step decomposition and explanation. Online \textbf{Q\&A forum} for
 \verb@Canopy@ is available \href{https://groups.google.com/d/forum/canopy_phylogeny}{\textcolor{blue}{here}}.
 If you've any questions regarding the software, you can also email us at
 \href{mailto:canopy\_phylogeny@googlegroups.com}{\textcolor{blue}{canopy\_phylogeny@googlegroups.com}}.
@@ -179,7 +178,7 @@ optK = K[which.max(bic)]
 
 \begin{figure}[H]
 \begin{center}
-\setkeys{Gin}{width=.85\linewidth}
+\setkeys{Gin}{width=.6\linewidth}
 <<label=fig1,fig=TRUE,echo=FALSE,height=4,width=8>>=
 # Note: this segment is soley for generating BIC plot in the vignettes.
 # Use Canopy.BIC() with pdf = TRUE to generate this plot directly.
@@ -211,7 +210,6 @@ as a model selection method.}
 \label{fig:one}
 \end{figure}
 
-\newpage
 
 \subsection*{2.5 Posterior evaluation of sampled trees}
 
@@ -259,9 +257,9 @@ canopy.plottree(output.tree,pdf=TRUE,pdf.name =
 @
 
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-\setkeys{Gin}{width=0.7\linewidth}
+\setkeys{Gin}{width=0.6\linewidth}
 <<label=fig2,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
 canopy.plottree(output.tree)
 @
@@ -276,6 +274,7 @@ Now try Canopy yourself using the simulated toy dataset below! Note that no
 overlapping CNAs are used as input and thus matrix $C$ doesn't need to be
 specified.
 <<Try it your self, eval = FALSE>>=
+library(Canopy)
 data(toy)
 projectname = 'toy'
 R = toy$R; X = toy$X; WM = toy$WM; Wm = toy$Wm
@@ -288,13 +287,13 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
                           projectname = projectname, cell.line = FALSE,
                           plot.likelihood = TRUE)
 @
-The most likely tree is shown below -- if you let the chain run long enough, there
-should be only one tree configuration. The code for this toy dataset analysis 
+The most likely tree is shown below. There should be only one tree configuration 
+from the posterior tree space. The code for this toy dataset analysis 
 can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_toy.R}{\textcolor{blue}{here}}. 
 
 \begin{figure}[H]
 \begin{center}
-\setkeys{Gin}{width=0.7\linewidth}
+\setkeys{Gin}{width=0.65\linewidth}
 <<label=fig3,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
 data(toy)
 canopy.plottree(toy$besttree, txt = FALSE, pdf = FALSE)
@@ -303,6 +302,40 @@ canopy.plottree(toy$besttree, txt = FALSE, pdf = FALSE)
 \caption{Most likely tree by Canopy for simulated toy dataset.}
 \label{fig:three}
 \end{figure}
+\newpage
+The second toy example has a different tree topology. Feel free to try Canopy 
+on this dataset too! There should be also just one tree configuration as is 
+shown below from the posterior tree space.  The code for this toy dataset 
+analysis can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_toy2.R}{\textcolor{blue}{here}}. 
+
+<<Try it your self2, eval = FALSE>>=
+library(Canopy)
+data(toy2)
+projectname = 'toy2'
+R = toy2$R; X = toy2$X; WM = toy2$WM; Wm = toy2$Wm
+epsilonM = toy2$epsilonM; epsilonm = toy2$epsilonm; Y = toy2$Y
+true.tree = toy2$true.tree
+
+K = 3:6; numchain = 10
+sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
+                          epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
+                          numchain = numchain, simrun = 50000, writeskip = 200,
+                          projectname = projectname, cell.line = FALSE,
+                          plot.likelihood = TRUE)
+@
+
+\begin{figure}[H]
+\begin{center}
+\setkeys{Gin}{width=0.7\linewidth}
+<<label=fig4,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
+data(toy2)
+canopy.plottree(toy2$true.tree, txt = FALSE, pdf = FALSE)
+@
+\end{center}
+\caption{Most likely tree by Canopy for simulated toy dataset 2.}
+\label{fig:four}
+\end{figure}
+
 
 \section*{4. Citation}
 Assessing intra-tumor heterogeneity and tracking longitudinal and spatial clonal

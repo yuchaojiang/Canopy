@@ -82,8 +82,8 @@ canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL, txt = NULL,
     }
     
     if (txt){
-        write.table(txt.output, file = txt.name, col.names = F, row.names = F,
-                    quote = FALSE, sep = '\t')
+        write.table(txt.output, file = txt.name, col.names = FALSE,
+                    row.names = FALSE, quote = FALSE, sep = '\t')
     }
     
     if (!is.null(pdf.name)) {
