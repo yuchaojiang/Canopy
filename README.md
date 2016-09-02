@@ -28,12 +28,13 @@ Yuchao Jiang <yuchaoj@upenn.edu>
   all configurations along with their confidence assessment.
 
 
-## Install the current release from CRAN
+## Installation
+* Install the current release from CRAN
 ```r
 install.packages('Canopy')
 ```
 
-## Install the devel version from GitHub
+* Install the devel version from GitHub
 ```r
 install.packages("devtools")
 library(devtools)
