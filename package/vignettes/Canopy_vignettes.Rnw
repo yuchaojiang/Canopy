@@ -289,7 +289,8 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
                           plot.likelihood = TRUE)
 @
 The most likely tree is shown below -- if you let the chain run long enough, there
-should be only one tree configuration.
+should be only one tree configuration. The code for this toy dataset analysis 
+can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_toy.R}{\textcolor{blue}{here}}. 
 
 \begin{figure}[H]
 \begin{center}

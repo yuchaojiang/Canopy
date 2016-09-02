@@ -2,7 +2,6 @@ Package: Canopy
 ===================
 09/01/2016
 Updated package, enabled tree topology shuffle.
-Added convergence check on MCMC sampling based on likelihood and acceptance rate.
 
 10/18/2015
 Compiled package, version 0.99.0.
