@@ -68,12 +68,7 @@ If you have any questions with the package, please feel free to post in our Goog
   
   ![sequenza_view] (https://github.com/yuchaojiang/Canopy/blob/master/instruction/sequenza_view.png)
   
-  The B-allele frequency is 
-  ```tex
-  $Bf = W_m / (W_M + W_m)$
-  ```
-  
-  $Bf = W_m / (W_M + W_m)$ and the depth ratio is $depth.ratio = (W_M + W_m)/2$. From here the input matrix $W_M$ and $W_m$ can be calculated.
+  The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
 
 * Which CNAs and SNAs should I use?
 
