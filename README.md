@@ -76,6 +76,12 @@ If you have any questions with the package, please feel free to post in our Goog
   
 * What is matrix C?
 
-
+  Matrix C is only needed if overlapping CNAs are used as input. If there is no overlapping CNA, C can be left as null. As an example from the vignettes below,
+  
+  |            |     chr7_1 |    chr7_2 |      chr12_1 |    chr12_2 | chr18 | chr19 |
+  |        chr7|       1    |      1    |        0     |       0    |   0   |   0   |
+  |       chr12|       0    |      0    |        1     |       1    |   0   |   0   |
+  |       chr18|       0    |      0    |        0     |       0    |   1   |   0   |
+  |       chr19|       0    |      0    |        0     |       0    |   0   |   1   |
 
 
