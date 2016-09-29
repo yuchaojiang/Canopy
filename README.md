@@ -42,7 +42,7 @@ install_github("yuchaojiang/Canopy/package")
 ```
 
 
-## Demo code & Vignettes
+## Demo Code & Vignettes
 * [Demo code](https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_demo.R)
 * [CRAN](https://cran.r-project.org/web/packages/Canopy/index.html)
 * [Vignettes](https://cran.rstudio.com/web/packages/Canopy/vignettes/Canopy_vignettes.pdf)
@@ -52,5 +52,14 @@ install_github("yuchaojiang/Canopy/package")
 Jiang, Y., Qiu, Y., Minn, A.J. and Zhang, N.R., 2016. Assessing intratumor heterogeneity and tracking longitudinal and spatial clonal evolutionary history by next-generation sequencing. *Proceedings of the National Academy of Sciences*. [[html](http://www.pnas.org/content/early/2016/08/26/1522203113), [pdf](http://www.pnas.org/content/early/2016/08/26/1522203113.full.pdf)]
 
 
-## Google user group (Q&A)
+## Google User Group (Q&A)
 If you have any questions with the package, please feel free to post in our Google user group https://groups.google.com/d/forum/canopy_phylogeny or email us at canopy_phylogeny@googlegroups.com. We will try our best to reply as soon as possible.
+
+
+## Common Questions
+* How do I generate CNA input for Canopy?
+
+* What CNAs and SNAs should I use?
+
+
+
