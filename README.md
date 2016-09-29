@@ -59,7 +59,7 @@ If you have any questions with the package, please feel free to post in our Goog
 ## Common Questions
 * How do I generate CNA input for Canopy?
 
-* What CNAs and SNAs should I use?
+* Which CNAs and SNAs should I use?
 
 * What is matrix C?
 
