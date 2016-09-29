@@ -66,7 +66,7 @@ If you have any questions with the package, please feel free to post in our Goog
   
   ![sequenza_seg] (https://github.com/yuchaojiang/Canopy/blob/master/instruction/sequenza_seg.png)
   
-  ![sequenza_view] (https://github.com/yuchaojiang/Canopy/blob/master/instruction/sequenza_view.jpg)
+  ![sequenza_view] (https://github.com/yuchaojiang/Canopy/blob/master/instruction/sequenza_view.png)
 
 
 * Which CNAs and SNAs should I use?
