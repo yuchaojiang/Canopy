@@ -60,7 +60,7 @@ If you have any questions with the package, please feel free to post in our Goog
 * How do I generate SNA and CNA input for Canopy?
   
   * We use UnifiedGenotyper by [GATK](https://software.broadinstitute.org/gatk/) to call somatic SNAs and follow its [Best Practices](https://software.broadinstitute.org/gatk/best-practices/). A demo code can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/UnifiedGenotyper.sh).
-  * We use [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) and [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) (instructions on FALCON-X to follow soon).
+  * To generate allele-specific copy number calls, [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) (see below) or [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) (instructions to follow soon) can be used.
 
 
 * Which CNAs and SNAs should I use?
