@@ -61,5 +61,8 @@ If you have any questions with the package, please feel free to post in our Goog
 
 * What CNAs and SNAs should I use?
 
+* What is matrix C?
+
+
 
 
