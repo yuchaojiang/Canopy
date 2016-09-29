@@ -57,7 +57,7 @@ If you have any questions with the package, please feel free to post in our Goog
 
 
 ## Common Questions
-* How do I generate SNA and CNA input for Canopy?
+* **How do I generate SNA and CNA input for Canopy?**
   
   * We use UnifiedGenotyper by [GATK](https://software.broadinstitute.org/gatk/) to call somatic SNAs and follow its [Best Practices](https://software.broadinstitute.org/gatk/best-practices/). A demo code can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/UnifiedGenotyper.sh).
   * To generate allele-specific copy number calls, [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) (see below) or [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) (instructions to follow soon) can be used.
@@ -70,11 +70,11 @@ If you have any questions with the package, please feel free to post in our Goog
   
     The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
 
-* Which CNAs and SNAs should I use?
+* **Which CNAs and SNAs should I use?**
   
   How to generate a clean set of input to Canopy is non-trivial. While this is not the main focus of our phylogeny reconstruction paper, an input with too many false positives will only lead to "garbage in garbage out" by Canopy. We are currently working on automating the pipeline for generating CNA and SNA input as well as offering guidance to select the informative CNAs. By saying informative, we mean that the SNAs or CNAs show distinct patterns between different samples (from the same patient since we are looking at intratumor heterogeneity). For SNAs, this means that the observed VAFs are different (see Figure 4B in our paper) and in this case a heatmap is a good way for visualization. For CNAs, this means that the WM and Wm are different (see Supplementary Figure S13 in our paper) and we find [IGV](http://software.broadinstitute.org/software/igv/) a good tool for visualization.
   
-* What is matrix C?
+* **What is matrix C?**
 
   Matrix C is only needed if overlapping CNAs are used as input. If there is no overlapping CNA, C can be left as null. As an example from the vignettes below, we know from the profiled CNAs (ses Supplementary Figure S13) in our paper that two CNA events hit the same BRAF region on chr7 and that two CNA events hit the same KRAS region on chr12. There are altogether four CNA regions and six CNA events. The C matrix specifies whether CNA regions harbor specific CNA events. In the case of overlapping CNAs, manual inspection is needed to identify mixture of CNA events with different copy number changes or different breakpoints.
   
