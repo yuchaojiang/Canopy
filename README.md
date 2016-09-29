@@ -70,7 +70,7 @@ If you have any questions with the package, please feel free to post in our Goog
   
   The B-allele frequency is 
   ```tex
-  Bf = W_m / (W_M + W_m
+  $Bf = W_m / (W_M + W_m)$
   ```
   
   $Bf = W_m / (W_M + W_m)$ and the depth ratio is $depth.ratio = (W_M + W_m)/2$. From here the input matrix $W_M$ and $W_m$ can be calculated.
