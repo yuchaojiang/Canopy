@@ -71,7 +71,9 @@ If you have any questions with the package, please feel free to post in our Goog
     The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
 
 * Which CNAs and SNAs should I use?
-
+  
+  How to generate a clean set of input to Canopy is non-trivial. While this is not the main focus of our phylogeny reconstruction paper, an input with too many false positives will only lead to "garbage in garbage out" by Canopy. We are currently working on automating the pipeline for generating CNA and SNA input as well as offering guidance to select the informative CNAs. By saying informative, we mean that the SNAs or CNAs show distinct patterns between different samples (from the same patient since we are looking at intratumor heterogeneity). For SNAs, this means that the observed VAFs are different (see Figure 4B in our paper) and in this case a heatmap is a good way for visualization. For CNAs, this means that the WM and Wm are different (see Supplementary Figure S13 in our paper) and we find [IGV](http://software.broadinstitute.org/software/igv/) a good tool for visualization.
+  
 * What is matrix C?
 
 
