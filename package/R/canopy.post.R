@@ -48,8 +48,11 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
     categ = 1
     for (i in 2:length(samptreethin)) {
         for (categi in 1:categ) {
-            if ((sum(samptreethin[[i]]$clonalmut %in% samptreethin[[which(config == 
-                categi)[1]]]$clonalmut)) == optK) {
+            list.a=samptreethin[[i]]$clonalmut
+            list.b=samptreethin[[which(config == categi)[1]]]$clonalmut
+            
+            if ((sum(is.element(list.a,list.b)) == optK) &
+                (sum(is.element(list.b,list.a)) == optK)) {
                 config[i] = categi
             }
         }
