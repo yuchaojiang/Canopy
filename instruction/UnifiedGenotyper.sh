@@ -127,16 +127,11 @@ line=vcfbam.list
 echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -T UnifiedGenotyper -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -I '$line' --dbsnp /home/stat/yuchaoj/structure/hg19/dbsnp_138.hg19.vcf -o '$line'.output.vcf' | qsub -q bigram -N $line
 
 
-
-
-## below might not be needed 
-
-#echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -T CombineGVCFs -V gvcfs.list -o mergeGvcf.vcf' | qsub -q bigram -N combineGVCFs
-
-
 # joint genotyping across samples
 echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -T GenotypeGVCFs -V gvcfs.list -o output.vcf' | qsub -q bigram -N genotypeGVCF
 
+
+## below might not be needed 
 
 # variant recalibration
 cd /home/stat/yuchaoj/structure/andyminn/clone; java -jar ~/bin/GenomeAnalysisTK.jar -T VariantRecalibrator -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -input output.vcf -resource:hapmap,known=false,training=true,truth=true,prior=15.0 /home/stat/yuchaoj/structure/hg19/hapmap_3.3.hg19.vcf -resource:omni,known=false,training=true,truth=true,prior=12.0 /home/stat/yuchaoj/structure/hg19/1000G_omni2.5.hg19.vcf -resource:1000G,known=false,training=true,truth=false,prior=10.0 /home/stat/yuchaoj/structure/hg19/1000G_phase1.snps.high_confidence.hg19.vcf -resource:dbsnp,known=true,training=false,truth=false,prior=2.0 /home/stat/yuchaoj/structure/hg19/dbsnp_138.hg19.vcf -an DP -an QD -an FS -an SOR -an MQ -an MQRankSum -an ReadPosRankSum -an InbreedingCoeff -mode SNP -tranche 100.0 -tranche 99.9 -tranche 99.0 -tranche 90.0 -recalFile recalibrate_SNP.recal -tranchesFile recalibrate_SNP.tranches -rscriptFile recalibrate_SNP_plots.R 
