@@ -55,13 +55,12 @@ done < bamlist1
 
 
 # gvcf calling
-# HaplotypeCaller
+# HaplotypeCaller (for germline point mutation calling)
 while read line
 do
 echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -T HaplotypeCaller -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -I '$line' --emitRefConfidence GVCF --variant_index_type LINEAR --variant_index_parameter 128000 --dbsnp /home/stat/yuchaoj/structure/hg19/dbsnp_138.hg19.vcf -L '$line'.target_intervals.list -o '$line'.raw_variants.g.vcf' | qsub -q bigram -N gvcf.$line
 done < vcfbam
-
-# UnifiedGenotyper
+# UnifiedGenotyper (for somatic point mutation calling)
 line=vcfbam.list
 echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -T UnifiedGenotyper -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -I '$line' --dbsnp /home/stat/yuchaoj/structure/hg19/dbsnp_138.hg19.vcf -o '$line'.output.vcf' | qsub -q bigram -N $line
 
