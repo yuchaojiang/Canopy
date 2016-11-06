@@ -1,5 +1,4 @@
 # sort, dedup, and index bam files
-cd /home/stat/yuchaoj/structure/andyminn/clone/
 while read line
 do
 echo 'Sorting sample ' $line' ...'
@@ -53,66 +52,6 @@ while read line
 do
 echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -T PrintReads -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -I '$line'.sorted.dedup.realigned.bam -BQSR '$line'.recal_data.table -o '$line'.sorted.dedup.realigned.recal.bam' | qsub -q bigram -N recalbam.$line
 done < bamlist1
-
-
-# remove intermediate files
-while read line
-do
-rm $line.merge.sorted.bam
-done < mergebamlist
-
-
-#line=1834_exome.bwa
-#echo $line
-# merge lanes
-while read line
-do
-echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; samtools merge '$line'.merge.bam '$line'.1.bam.sorted.dedup.realigned.recal.bam '$line'.2.bam.sorted.dedup.realigned.recal.bam; samtools sort '$line'.merge.bam '$line'.merge.sorted; samtools index '$line'.merge.sorted.bam' | qsub -N merge.$line
-done < mergebamlist
-
-
-# reheader
-while read line
-do
-echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; samtools view -H '$line'.2.bam.sorted.dedup.realigned.recal.bam | grep '@RG' > '$line'.rg; samtools view -H '$line'.merge.sorted.bam | cat - '$line'.rg > '$line'.header; samtools reheader '$line'.header '$line'.merge.sorted.bam > '$line'.merge.sorted.reheaded.bam' | qsub -N rehead.$line
-done < mergebamlist
-
-
-#line=1833_exome.bwa
-#echo $line
-# dedup merged lanes
-while read line
-do
-echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/MarkDuplicates.jar INPUT=~/structure/andyminn/clone/'$line'.merge.sorted.reheaded.bam OUTPUT=~/structure/andyminn/clone/'$line'.merge.sorted.reheaded.dedup.bam  METRICS_FILE=metrics.txt; java -jar ~/bin/BuildBamIndex.jar INPUT=~/structure/andyminn/clone/'$line'.merge.sorted.reheaded.dedup.bam' | qsub -N dedup.merge.$line
-done < mergebamlist
-
-
-# realign merged lanes 1
-while read line
-do
-echo 'cd /home/stat/yuchaoj/structure/andyminn/clone; java -jar ~/bin/GenomeAnalysisTK.jar -T RealignerTargetCreator -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -I /home/stat/yuchaoj/structure/andyminn/clone/'$line'.merge.sorted.reheaded.dedup.bam -known /home/stat/yuchaoj/structure/hg19/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf -known /home/stat/yuchaoj/structure/hg19/1000G_phase1.indels.hg19.sites.vcf -o '$line'.merge.target_intervals.list' | qsub -q bigram -N realign1.merge.$line
-done < mergebamlist
-
-
-# realign merged lanes 2
-while read line
-do
-echo 'cd /home/stat/yuchaoj/structure/andyminn/clone/; java -jar ~/bin/GenomeAnalysisTK.jar -T IndelRealigner -R /home/stat/yuchaoj/structure/hg19/ucsc.hg19.fasta -I /home/stat/yuchaoj/structure/andyminn/clone/'$line'.merge.sorted.reheaded.dedup.bam -targetIntervals '$line'.merge.target_intervals.list -known /home/stat/yuchaoj/structure/hg19/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf -known /home/stat/yuchaoj/structure/hg19/1000G_phase1.indels.hg19.sites.vcf -o '$line'.merge.sorted.reheaded.dedup.realigned.bam' | qsub -q bigram -N realign2.merge.$line
-done < mergebamlist
-
-
-#line=1833_exome.bwa.merge.sorted.reheaded.dedup.realigned.bam
-#echo $line
-# get target lists
-while read line
-do
-cp $line.merge.target_intervals.list $line.merge.sorted.reheaded.dedup.realigned.bam.target_intervals.list
-done < mergebamlist
-
-while read line
-do
-cp $line.target_intervals.list $line.sorted.dedup.realigned.recal.bam.target_intervals.list
-done < bamlist3
 
 
 # gvcf calling
