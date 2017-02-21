@@ -36,6 +36,7 @@ install.packages('Canopy')
 
 * Install the devel version from GitHub
 ```r
+install.packages("fields")
 install.packages("devtools")
 library(devtools)
 install_github("yuchaojiang/Canopy/package")
