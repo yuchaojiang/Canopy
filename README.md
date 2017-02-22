@@ -58,7 +58,7 @@ If you have any questions with the package, please feel free to post in our Goog
 
 
 ## Common Questions
-* **[How do I generate SNA and CNA input for Canopy?](https://github.com/yuchaojiang/Canopy/blob/master/demo_code/SNA_CNA_input.md)**
+* **[How do I generate SNA and CNA input for Canopy?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md)**
 
 * **Which CNAs and SNAs should I use?**
   
