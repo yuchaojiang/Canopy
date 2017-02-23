@@ -6,7 +6,7 @@
     * Pass variant recalibration (VQSR) from GATK;
     * Have only one alternative allele (one locus being double hit by two different SNAs in one patient is very unlikely);
     * Are highly deleterious (i.e., focuse on driver mutations) from functional annotations (**[ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)**);
-    * Have low populatio variant frequency from the 1000 Genomes Project (if no normal samples are available);
+    * Have low population variant frequency from the 1000 Genomes Project (if no normal samples are available);
     * Don't reside in segmental duplication regions;
     * Have high depth of coverage (total as well as mutated read depth);
     * Reside in target baits (e.g., exonic regions for exome sequencing);
