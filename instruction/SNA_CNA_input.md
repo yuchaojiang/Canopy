@@ -14,7 +14,7 @@
     * ...
       
 
- * After mutation calling and QC procedures, the number of mutated reads will be stored in matrix $R$ while the total number of reads will be stored in matrix $X$ across all mutational loci in all samples. An example data input of a leukemia patient AML43 from Ding et al. can be found here. 
+ * After mutation calling and QC procedures, the number of mutated reads will be stored in matrix R while the total number of reads will be stored in matrix X across all mutational loci in all samples. An example data input of a leukemia patient AML43 from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html) can be found here. 
  
  * A good way for sanity check is to plot the variant allele frequencies (VAFs) across samples. If there are only two samples, a 2-D scatterplot will suffice; if there are more than two samples, heatmap can be used for visualization.
 
