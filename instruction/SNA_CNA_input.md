@@ -5,14 +5,17 @@
  * Stringent QC procedures are strongly recommended.
     * Pass variant recalibration (VQSR) from GATK;
     * Have only one alternative allele (one locus being double hit by two different SNAs in one patient is very unlikely);
-    * Are highly deleterious from functional annotations ([ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)), which have a higher chance to be driver mutations;
+    * Are highly deleterious from functional annotations **([ANNOVAR](http://annovar.openbioinformatics.org/en/latest/))**, which have a higher chance to be driver mutations;
+    * Have low populatio variant frequency from the 1000 Genomes Project (if no normal samples are available);
+    * Don't reside in segmental duplication regions;
     * Have high depth of coverage (total as well as mutated read depth);
-    * Reside in target baits (exonic regions for exome sequencing).
+    * Reside in target baits (e.g., exonic regions for exome sequencing);
+    * ...
+    * ...
       
 
  * A good way for sanity check is to plot the variant allele frequencies (VAFs) across samples. If there are only two samples, a 2-D scatterplot will suffice; if there are more than two samples, heatmap can be used for visualization.
-  
- * After visualization confirms that there are clusters in the SNA data, a bivariate clustering step can be applied to pre-cluster mutations before MCMC starts sampling.
+
  
 
 
