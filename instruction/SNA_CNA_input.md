@@ -18,7 +18,7 @@
  
  * A good way for sanity check is to plot the variant allele frequencies (VAFs) across samples. If there are only two samples, a 2-D scatterplot will suffice; if there are more than two samples, heatmap can be used for visualization.
 
-![VAF] (https://github.com/yuchaojiang/Canopy/blob/master/instruction/demo-page-001.jpg =100x100)
+      <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/demo-page-001.jpg' width='500' height='500' >
 
  
 ## **How do I generate CNA input for Canopy?**
