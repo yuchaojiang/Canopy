@@ -2,7 +2,7 @@
 
  * We use UnifiedGenotyper by **[GATK](https://software.broadinstitute.org/gatk/)** to call somatic SNAs and follow its [Best Practices](https://software.broadinstitute.org/gatk/best-practices/). A demo code can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/UnifiedGenotyper.sh). **[MuTect](http://archive.broadinstitute.org/cancer/cga/mutect)** and **[VarScan2](http://massgenomics.org/varscan)** can also be used when paired normal samples are available.
 
- * Stringent QC procedures are strongly recommended.
+ * *Stringent* QC procedures are strongly recommended. Just to list a few QCs that we have adopted:
     * Pass variant recalibration (VQSR) from GATK;
     * Have only one alternative allele (one locus being double hit by two different SNAs in one patient is very unlikely);
     * Are highly deleterious from functional annotations **([ANNOVAR](http://annovar.openbioinformatics.org/en/latest/))**, which have a higher chance to be driver mutations;
