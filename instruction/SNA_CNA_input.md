@@ -38,6 +38,7 @@ Data visualization and QC procedures on Sequenza's segmentation output are stron
    * Don't have extreme estimated copy numbers (e.g., total copy number >= 6);
    * ...
    * ...
+
 It is also worth noting that additional steps are needed to further curate the segments. For example, chr17q is split into three segments in the primary tumor, which should be just one large duplication instead (via comparison against the relapse). Furthermore, the breakpoints of the same CNA events between the primrary tumor and the relapse genome are sometimes different and they need to be merged.
 
 <p align="center">
