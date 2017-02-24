@@ -27,6 +27,10 @@
 ## **How do I generate CNA input for Canopy?**
 To generate allele-specific copy number calls, [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) (see below) or [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) (instructions to follow soon) can be used.
 
+Sequenza estimates allele-specific copy numbers as well as tumor purity and ploidy using B-allele frequencies and depth ratios from paired tumor-normal sequencing data. Here are Sequenza outputs from WES of normal, primary tumor and relapse genome of a neuroblastoma patient from [Eleveld et al. (Nature Genetics 2015)](http://www.nature.com/ng/journal/v47/n8/abs/ng.3333.html).
+
+
+
 The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
     
     
