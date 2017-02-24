@@ -32,6 +32,11 @@ Sequenza estimates allele-specific copy numbers as well as tumor purity and ploi
    * [Primary tumor Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.txt)
    * [Relapse genome Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/relapse.txt)
 
+Data visualization and QC procedures on Sequenza's segmentation output are strongly recommended. Below is genome-wide view from Sequenza as a sanity check.
+
+
+
+
 The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
     
     
