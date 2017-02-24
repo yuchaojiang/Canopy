@@ -1,4 +1,4 @@
-* What is matrix C? How do I deal with overlapping CNAs?
+## What is matrix C? How do I deal with overlapping CNAs?
 
   Matrix C is only needed if overlapping CNAs are used as input -- if there is no overlapping CNA, C can be left as null. If there are overlapping CNA events, the columns of the C matrix are the CNA ***events*** and the rows are the CNA ***regions***.
   
