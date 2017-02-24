@@ -62,7 +62,7 @@ If you have any questions with the package, please feel free to post in our Goog
 
 * [Which CNAs and SNAs should I use?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md)
   
-* What is matrix C?
+* What is matrix C? How do I deal with overlapping CNAs?
 
   Matrix C is only needed if overlapping CNAs are used as input -- if there is no overlapping CNA, C can be left as null. If there are overlapping CNA events, the columns of the C matrix are the CNA ***events*** and the rows are the CNA ***regions***.
   
