@@ -32,7 +32,7 @@ Sequenza estimates allele-specific copy numbers as well as tumor purity and ploi
    * [Primary tumor Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.txt)
    * [Relapse genome Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/relapse.txt)
 
-Data visualization and QC procedures on Sequenza's segmentation output are strongly recommended. Below is genome-wide view from Sequenza as a sanity check.
+Data visualization and QC procedures on Sequenza's segmentation output are strongly recommended. Below is genome-wide view from Sequenza as a sanity check. The top panel is for the primary tumor and the bottom panel is for the relapse. The red and blue lines are for the major and minor copy numbers, respectively. We see that the large chromosome-arm level deletions and duplications are fairly concordant between the primary tumor and the relapse genome, while the relapse tumor gained additional copy number changes at the second timepoint. The small CNA events, however, are most likely false positives and should be filtered out through QC procedures.
 
 <p align="center">
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.jpg' >
@@ -40,7 +40,6 @@ Data visualization and QC procedures on Sequenza's segmentation output are stron
 <p align="center">
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/relapse.jpg' >
 </p>
-
 
 The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
     
