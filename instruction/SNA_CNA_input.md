@@ -32,9 +32,13 @@ Sequenza estimates allele-specific copy numbers as well as tumor purity and ploi
    * [Primary tumor Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.txt)
    * [Relapse genome Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/relapse.txt)
 
-Data visualization and QC procedures on Sequenza's segmentation output are strongly recommended. Below is genome-wide view from Sequenza as a sanity check. The top panel is for the primary tumor and the bottom panel is for the relapse. The red and blue lines are for the major and minor copy numbers, respectively. We see that large chromosome-arm level deletions and duplications are fairly concordant between the primary tumor and the relapse genome (check!), while the relapse tumor gained additional CNAs at the second timepoint. The small CNA events, however, are most likely false positives and should be filtered out through QC procedures.
-
-QC procedures that are recommended.
+Data visualization and QC procedures on Sequenza's segmentation output are strongly recommended. Below is genome-wide view from Sequenza as a sanity check. The top panel is for the primary tumor and the bottom panel is for the relapse. The red and blue lines are for the major and minor copy numbers, respectively. We see that large chromosome-arm level deletions and duplications are fairly concordant between the primary tumor and the relapse genome (check!), while the relapse tumor gained additional CNAs at the second timepoint. The small CNA events, however, are most likely false positives and should be filtered out through QC procedures, which may include:
+   * Have at least 100 heterozygous loci within each segment;
+   * Are at least 5Mb long;
+   * Don't have extreme estimated copy numbers (e.g., total copy number >= 6);
+   * ...
+   * ...
+It is also worth noting that additional steps are needed to further curate the segments. For example, chr17q is split into three segments in the primary tumor, which should be just one large duplication instead (via comparison against the relapse). Furthermore, the breakpoints of the same CNA events between the primrary tumor and the relapse genome are sometimes different and they need to be merged.
 
 <p align="center">
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.jpg' >
@@ -43,9 +47,7 @@ QC procedures that are recommended.
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/relapse.jpg' >
 </p>
 
-Canopy does not require interger allele-specific copy number as input. While Sequenza infers tumor purity and ploidy and outputs interger-valued allle-specifc copy numbers, SCALE directly takes as input the fractional allele-specific copy numbers, which can be obtained from the segmentation output (see above). The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated.
-    
- epsilonM and epsilonm
+Canopy does not require interger allele-specific copy number as input. While Sequenza infers tumor purity and ploidy and outputs interger-valued allle-specifc copy numbers, SCALE directly takes as input the fractional allele-specific copy numbers, which can be obtained from the segmentation output (see above). The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated. The standard errors of the estimated copy numbers, epsilonM and epsilonm, can be set as default by Canopy or be taken as the sd.ratio from Sequenza's output, assuming they are the same.
     
     
 ## **Which CNAs and SNAs should I use?**
