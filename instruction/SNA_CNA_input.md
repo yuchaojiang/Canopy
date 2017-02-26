@@ -37,7 +37,7 @@ Data visualization and QC procedures on Sequenza's segmentation output are stron
    * ...
    * ...
 
-It is also worth noting that additional steps are needed to further curate the segments. For example, chr17q is split into three segments in the primary tumor, which should be just one large duplication instead (via comparison against the relapse). Furthermore, the breakpoints of the same CNA events between the primrary tumor and the relapse genome are sometimes different and they need to be merged. They should NOT be treated as separate events.
+It is also worth noting that **additional steps are further neede to generate curated CNA segments**. For example, chr17q is split into three segments in the primary tumor, which should be just one large duplication instead (via comparison against the relapse). Furthermore, the breakpoints of the same CNA events between the primrary tumor and the relapse genome are sometimes different and they need to be merged. They should NOT be treated as separate events.
 
 <p align="center">
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.jpg' >
