@@ -60,6 +60,6 @@ If you have any questions with the package, please feel free to post in our Goog
 ## Common Questions
 * [How do I generate SNA and CNA input for Canopy?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md)
 
-* [Which CNAs and SNAs should I use?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md)
+* [Which CNAs and SNAs should I use?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_choice.md)
   
 * [What is matrix C? How do I deal with overlapping CNAs?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/overlapping_CNA.md)
