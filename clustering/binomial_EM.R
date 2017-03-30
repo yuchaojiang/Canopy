@@ -1,51 +1,3 @@
-
-########################################
-########################################
-#
-#        Generating data input
-#
-########################################
-########################################
-
-setwd("C:/Users/yuchaoj/Dropbox/GitHub/canopy_binomial_clustering")
-
-load('realtree_200_500_3_4_1.rda')
-dim(R); dim(X) # 200 mutations across 3 samples
-sim_toy=list(R=R,X=X)
-save(sim_toy,file='sim_toy.rda')
-
-# AML43
-aml43=read.table('869586_DingEtAl.txt',head=T,sep='\t')
-colnames(aml43)
-
-# make sure all CNs are 2
-aml43=aml43[aml43$NormalCN==2 & aml43$TumorCN==2 & aml43$RelapseCN==2,]
-
-Y1=as.numeric(as.character(aml43$TumorVarReads))
-N1=as.numeric(as.character(aml43$TumorRefReads))+as.numeric(as.character(aml43$TumorVarReads))
-Y2=as.numeric(as.character(aml43$RelapseVarReads))
-N2=as.numeric(as.character(aml43$RelapseRefReads))+as.numeric(as.character(aml43$RelapseVarReads))
-
-
-filter=(Y1/N1<0.6)&(Y2/N2<0.6)
-
-Y1=Y1[filter]
-Y2=Y2[filter]
-N1=N1[filter]
-N2=N2[filter]
-
-R=cbind(Y1,Y2)
-X=cbind(N1,N2)
-
-colnames(R)=colnames(X)=c('Primary','Relapse')
-rownames(R)=rownames(X)=paste('mut',1:nrow(R),sep ='')
-
-AML43=list(R=R,X=X)
-save(AML43,file='AML43.rda')
-
-
-
-
 ########################################
 ########################################
 #
@@ -54,7 +6,6 @@ save(AML43,file='AML43.rda')
 ########################################
 ########################################
 
-setwd("C:/Users/yuchaoj/Dropbox/GitHub/canopy_binomial_clustering")
 library(Canopy)
 library(pheatmap)
 library(scatterplot3d)
@@ -104,8 +55,6 @@ par(mfrow=c(1,1))
 ########################################
 ########################################
 
-
-setwd("C:/Users/yuchaoj/Dropbox/GitHub/canopy_binomial_clustering")
 library(Canopy)
 library(pheatmap)
 library(scatterplot3d)
@@ -138,12 +87,3 @@ colc=c('green4','red3','royalblue1','darkorange1','royalblue4',
 pchc=c(17,0,1,15,3,16,4,8,2,16)
 plot((R/X)[,1],(R/X)[,2],xlab='Sample1 VAF',ylab='Sample2 VAF',col=colc[mut_cluster],pch=pchc[mut_cluster],ylim=c(0,max(R/X)),xlim=c(0,max(R/X)))
 #dev.off()
-
-
-
-
-
-
-
-
-
