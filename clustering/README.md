@@ -14,7 +14,7 @@
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/sim_toy_classification.jpg' width='600' height='300' >
 </p>
   
-  Below is real dataset from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html), where a leukemia patient was sequenced at two timepoints -- primary tumor (sample 1) and relapse genome (sample 2). The real dataset is noisier and can potentially contain false positives for somatic mutations. We thus introduce a uniformly distributed (between 0 and 1) component that corresponds to cluster of mutations that are likely false positives.
+  Below is real dataset from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html), where a leukemia patient was sequenced at two timepoints -- primary tumor (sample 1) and relapse genome (sample 2). The real dataset is noisier and can potentially contain false positives for somatic mutations. We thus introduce a multivariate uniform component on the unit interval, which includes mutations that have high standard errors during sequencing or are likely to be false positives. The code can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/clustering/binomial_EM.R) (bottom part); the dataset can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/clustering/AML43.rda).
   
 <p align="center">
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/AML43_classification.jpg' width='300' height='300' >
