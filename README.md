@@ -37,6 +37,7 @@ install.packages('Canopy')
 * Install the devel version from GitHub (installation/update from GitHub HIGHLY recommended)
 ```r
 install.packages("fields")
+install.packages("pheatmap")
 install.packages("devtools")
 library(devtools)
 install_github("yuchaojiang/Canopy/package")
