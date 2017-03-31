@@ -59,7 +59,7 @@ If you have any questions with the package, please feel free to post in our Goog
 
 ## Common Questions
 
-It is highly recommended that the users read the common questions below carefully before applying Canopy and posting questions in the Google user group.
+It is HIGHLY recommended that the users read the common questions below carefully before applying Canopy and posting questions in the Google user group.
 
 * [How do I generate SNA and CNA input for Canopy?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md)
 
