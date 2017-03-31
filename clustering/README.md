@@ -11,11 +11,11 @@
 </p>
 
 <p align="center">
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/sim_toy_classification.jpg' width='500' height='500' >
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/sim_toy_classification.jpg' width='600' height='300' >
 </p>
   
 <p align="center">
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/AML43_classification.jpg' width='500' height='500' >
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/AML43_classification.jpg' width='300' height='300' >
 </p>
 
 
