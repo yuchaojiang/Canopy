@@ -65,6 +65,6 @@ It is highly recommended that the users read the common questions below carefull
 
 * [Which CNAs and SNAs should I use?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_choice.md)
  
-* [How do I cluster the SNAs (point mutatations)?](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
+* [How do I cluster the SNAs?](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
 
 * [What is matrix C? How do I deal with overlapping CNAs?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/overlapping_CNA.md)
