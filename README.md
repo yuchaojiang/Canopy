@@ -29,12 +29,12 @@ Yuchao Jiang <yuchaoj@upenn.edu>
 
 
 ## Installation
-* Install the current release from CRAN
+* Install the current release from CRAN (updated every 3 months)
 ```r
 install.packages('Canopy')
 ```
 
-* Install the devel version from GitHub
+* Install the devel version from GitHub (installation/update from GitHub HIGHLY recommended)
 ```r
 install.packages("fields")
 install.packages("devtools")
