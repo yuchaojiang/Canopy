@@ -1,6 +1,6 @@
 ## **Binomial clustering on SNAs**
   
-  ***Disclaimer***: While this is a very important question to address, we don't think this is the major contribution of Canopy, but rather a by-product of our program. There are other methods that specifically focus on clustering mutations, e.g., [SciClone](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003665), [PyClone](http://www.nature.com/nmeth/journal/v11/n4/full/nmeth.2883.html), etc.
+  *Disclaimer*: While this is a very important question to address, we don't think this is the major contribution of Canopy, but rather a by-product of our program. There are other methods that specifically focus on clustering mutations, e.g., [SciClone](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003665), [PyClone](http://www.nature.com/nmeth/journal/v11/n4/full/nmeth.2883.html), etc.
   
   A multivariate binomial mixture clustering step can be applied to the SNAs before MCMC sampling. We show in our paper via simulations that this pre-clustering method helps the Markov chain converge faster with smaller estimation error (especially when mutations show clear cluster patterns by visualization). This clustering step can also remove likely false positives before feeding the mutations to the MCMC algorithm.
   
