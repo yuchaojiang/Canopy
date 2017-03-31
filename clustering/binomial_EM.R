@@ -30,7 +30,6 @@ plot(num_cluster,bic_output,xlab='Number of mutation clsuters',ylab='BIC',type='
 abline(v=num_cluster[which.max(bic_output)],lty=2)
 #dev.off()
 
-
 # Visualization of clustering result
 Mu=canopy.cluster$Mu # VAF centroid for each cluster
 Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
@@ -45,7 +44,6 @@ scatterplot3d((R/X)[,1],(R/X)[,2],(R/X)[,3],xlim=c(0,max(R/X)),ylim=c(0,max(R/X)
               xlab='Sample1 VAF',ylab='Sample2 VAF',zlab='Sample3 VAF')
 par(mfrow=c(1,1))
 #dev.off()
-
 
 ########################################
 ########################################
@@ -65,17 +63,19 @@ load('AML43.rda')
 R=AML43$R; X=AML43$X
 dim(R);dim(X)
 num_cluster=4 # Range of number of clusters to run
-num_run=10 # How many EM runs per clustering step for each mutation cluster wave
-Tau_Kplus1=0.05
-Mu.init=cbind(c(0.01,0.15,0.25,0.45),c(0.2,0.2,0.01,0.2))
+num_run=10 # How many randomly started EM runs per clustering with a specific number of cluster
+Tau_Kplus1=0.05 # Initial value of the proportion of the uniform component, which corresponds to outliers and false positives
+Mu.init=cbind(c(0.01,0.15,0.25,0.45),c(0.2,0.2,0.01,0.2)) # Initial values of VAFs of the centroids. This is not required
+                                                          # by the clustering algorithm below but can guide the EM to converge
+                                                          # to the correct global optima. This can be obtained via visualization
+                                                          # of the observed VAFs, i.e., R/X.
 
 canopy.cluster=canopy.cluster(R = R,
                               X = X,
                               num_cluster = num_cluster,
                               num_run = num_run,
                               Mu.init = Mu.init,
-                              Tau_Kplus1=Tau_Kplus1)
-
+                              Tau_Kplus1 = Tau_Kplus1)
 
 # Visualization of clustering result
 Mu=canopy.cluster$Mu # VAF centroid for each cluster
