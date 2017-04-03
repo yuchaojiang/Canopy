@@ -69,3 +69,6 @@ It is HIGHLY recommended that the users read the common questions below carefull
 * [How do I cluster the SNAs?](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
 
 * [What is matrix C? How do I deal with overlapping CNAs?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/overlapping_CNA.md)
+
+* [Error in config.summary/canopy.post?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/config_summary_error.md)
+
