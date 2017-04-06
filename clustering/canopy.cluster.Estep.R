@@ -2,6 +2,7 @@
 canopy.cluster.Estep = function(Tau,Mu,R,X){
     s=nrow(R) # number of mutations
     K=nrow(Mu) # number of mutation clusters
+    Mu=pmax(Mu, 0.001)
     pG=matrix(nrow=K+1,ncol=s,data=log(Tau)) # hidden parameters specifying probability of which component generated each data item
     pG[1:K,]=pG[1:K,]+log(Mu)%*%t(R)+log(1-Mu)%*%(t(X-R))
     for(j in 1:ncol(R)){
