@@ -7,17 +7,11 @@
 ########################################
 
 library(Canopy)
-library(pheatmap)
-library(scatterplot3d)
-source('canopy.cluster.Estep.R')
-source('canopy.cluster.Mstep.R')
-source('canopy.cluster.R')
-load('sim_toy.rda')
-R=sim_toy$R; X=sim_toy$X
+data(toy3)
+R=toy3$R; X=toy3$X
 dim(R);dim(X)
 num_cluster=2:9 # Range of number of clusters to run
-num_run=20 # How many EM runs per clustering step for each mutation cluster wave
-
+num_run=10 # How many EM runs per clustering step for each mutation cluster wave
 canopy.cluster=canopy.cluster(R = R,
                               X = X,
                               num_cluster = num_cluster,
@@ -25,25 +19,21 @@ canopy.cluster=canopy.cluster(R = R,
 
 # BIC to determine the optimal number of mutation clusters
 bic_output=canopy.cluster$bic_output
-#pdf(file='sim_toy_BIC.pdf',width=4,height=4)
 plot(num_cluster,bic_output,xlab='Number of mutation clsuters',ylab='BIC',type='b',main='BIC for model selection')
 abline(v=num_cluster[which.max(bic_output)],lty=2)
-#dev.off()
 
 # Visualization of clustering result
 Mu=canopy.cluster$Mu # VAF centroid for each cluster
 Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
-mut_cluster=canopy.cluster$mut_cluster # cluster identity for each mutation
-#pdf(file='sim_toy_classification.pdf',width=8,height=4)
-par(mfrow=c(1,2))
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
 colc=c('green4','red3','royalblue1','darkorange1','royalblue4',
        'mediumvioletred','seagreen4','olivedrab4','steelblue4','lavenderblush4')
 pchc=c(17,0,1,15,3,16,4,8,2,16)
-plot((R/X)[,1],(R/X)[,2],xlab='Sample1 VAF',ylab='Sample2 VAF',col=colc[mut_cluster],pch=pchc[mut_cluster],ylim=c(0,max(R/X)),xlim=c(0,max(R/X)))
-scatterplot3d((R/X)[,1],(R/X)[,2],(R/X)[,3],xlim=c(0,max(R/X)),ylim=c(0,max(R/X)),zlim=c(0,max(R/X)),color=colc[mut_cluster],pch=pchc[mut_cluster],
+plot((R/X)[,1],(R/X)[,2],xlab='Sample1 VAF',ylab='Sample2 VAF',col=colc[sna_cluster],pch=pchc[sna_cluster],ylim=c(0,max(R/X)),xlim=c(0,max(R/X)))
+library(scatterplot3d)
+scatterplot3d((R/X)[,1],(R/X)[,2],(R/X)[,3],xlim=c(0,max(R/X)),ylim=c(0,max(R/X)),zlim=c(0,max(R/X)),color=colc[sna_cluster],pch=pchc[sna_cluster],
               xlab='Sample1 VAF',ylab='Sample2 VAF',zlab='Sample3 VAF')
-par(mfrow=c(1,1))
-#dev.off()
+
 
 ########################################
 ########################################
