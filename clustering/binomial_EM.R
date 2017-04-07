@@ -1,7 +1,7 @@
 ########################################
 ########################################
 #
-#       Clustering toy example
+#       Clustering toy3 example
 #
 ########################################
 ########################################
@@ -54,36 +54,36 @@ par(mfrow=c(1,1))
 ########################################
 
 library(Canopy)
-library(pheatmap)
 library(scatterplot3d)
-source('canopy.cluster.Estep.R')
-source('canopy.cluster.Mstep.R')
-source('canopy.cluster.R')
-load('AML43.rda')
+data(AML43)
 R=AML43$R; X=AML43$X
 dim(R);dim(X)
 num_cluster=4 # Range of number of clusters to run
-num_run=10 # How many randomly started EM runs per clustering with a specific number of cluster
-Tau_Kplus1=0.05 # Initial value of the proportion of the uniform component, which corresponds to outliers and false positives
-Mu.init=cbind(c(0.01,0.15,0.25,0.45),c(0.2,0.2,0.01,0.2)) # Initial values of VAFs of the centroids. This is not required
-                                                          # by the clustering algorithm below but can guide the EM to converge
-                                                          # to the correct global optima. This can be obtained via visualization
-                                                          # of the observed VAFs, i.e., R/X.
-
+num_run=10 # How many EM runs per clustering step for each mutation cluster wave
+Tau_Kplus1=0.05
+Mu.init=cbind(c(0.01,0.15,0.25,0.45),c(0.2,0.2,0.01,0.2))
 canopy.cluster=canopy.cluster(R = R,
                               X = X,
                               num_cluster = num_cluster,
                               num_run = num_run,
                               Mu.init = Mu.init,
-                              Tau_Kplus1 = Tau_Kplus1)
+                              Tau_Kplus1=Tau_Kplus1)
 
 # Visualization of clustering result
 Mu=canopy.cluster$Mu # VAF centroid for each cluster
 Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
-mut_cluster=canopy.cluster$mut_cluster # cluster identity for each mutation
-#pdf(file='AML43_classification.pdf',width=4,height=4)
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
 colc=c('green4','red3','royalblue1','darkorange1','royalblue4',
        'mediumvioletred','seagreen4','olivedrab4','steelblue4','lavenderblush4')
 pchc=c(17,0,1,15,3,16,4,8,2,16)
-plot((R/X)[,1],(R/X)[,2],xlab='Sample1 VAF',ylab='Sample2 VAF',col=colc[mut_cluster],pch=pchc[mut_cluster],ylim=c(0,max(R/X)),xlim=c(0,max(R/X)))
-#dev.off()
+plot((R/X)[,1],(R/X)[,2],xlab='Sample1 VAF',ylab='Sample2 VAF',col=colc[sna_cluster],pch=pchc[sna_cluster],ylim=c(0,max(R/X)),xlim=c(0,max(R/X)))
+
+table(sna_cluster) # the 5th cluster corresponds to the noise component
+
+R=R[sna_cluster<=4,] # exclude mutations in the noise cluster
+X=X[sna_cluster<=4,]
+sna_cluster=sna_cluster[sna_cluster<=4]
+
+R.cluster=round(Mu*100)  # Generate pseudo-SNAs correponding to each cluster. 
+X.cluster=pmax(R.cluster,100)   # Total depth is set at 100 here but can be obtained as median across mutations in the cluster.
+rownames(R.cluster)=rownames(X.cluster)=paste('SNA.cluster',1:4,sep='')
