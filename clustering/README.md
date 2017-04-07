@@ -30,4 +30,4 @@
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/clustering/AML43_classification.jpg' width='300' height='300' >
 </p>
 
-  Canopy then uses the pre-clustering results to initialize the MCMC procedure, and then fine tunes the individual mutations (each SNA and each CNA) within each cluster later in the MCMC run, which also adjusts for the clustering uncertainty. This part is to be updated soon.
+  Canopy uses the pre-clustering results to initialize the MCMC procedure, and then fine tunes the individual mutations within each cluster later in the MCMC run, which also adjusts for the clustering uncertainty.
