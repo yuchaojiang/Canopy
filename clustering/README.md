@@ -31,3 +31,5 @@
 </p>
 
   Canopy uses the pre-clustering results to initialize the MCMC procedure, and then fine tunes the individual mutations within each cluster later in the MCMC run, which also adjusts for the clustering uncertainty. An alternative is to generate pseudo-SNA corresponding to each mutation cluster. The read depth can be taken as the median across all mutations within the mutation cluster; the observed MAFs are just the estimated centroid from the EM algorithm, from which the number of mutant reads can be obtained.
+  
+  Code for MCMC sampling after Binomial mixture clustering can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/demo_code/canopy_demo_toy3.R).
