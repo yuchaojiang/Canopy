@@ -1,5 +1,35 @@
-## **Which CNAs and SNAs should I use?**
+## **What if I only have SNA input? What are the sampling modes for Canopy?**
   
-  How to generate a clean set of input to Canopy is important and non-trivial. While in our phylogeney reconstruction paper we were not trying to solve this tricky but separate problem of quality control of point mutation profiling and copy number estimation, an input with too many false positives will only lead to "garbage in garbage out" by Canopy. We are currently working on automating the pipeline for generating CNA and SNA input as well as offering guidance to select the ***informative*** SNAs and CNAs. By saying ***informative***, we mean that the SNAs or CNAs show distinct patterns between different samples (from the same patient since we are looking at intratumor heterogeneity). For SNAs, this means that the observed VAFs are different (see __*Figure 4B*__ in our paper) and in this case a heatmap is a good way for visualization. For CNAs, this means that the WM and Wm are different (see __*Supplementary Figure S13*__ in our paper) and we find **[IGV](http://software.broadinstitute.org/software/igv/)** a good tool for visualization and recommend focusing on large CNA regions, which helps remove false calls and speed up computation.
+  There are four modes of MCMC sampling embedded in Canopy.
+  (1) **canopy.sample**, which takes both SNA and CNA as input by default:
+```r
+library(Canopy)
+data("MDA231")
+projectname = MDA231$projectname ## name of project
+R = MDA231$R; R ## mutant allele read depth (for SNAs)
+X = MDA231$X; X ## total depth (for SNAs)
+WM = MDA231$WM; WM ## observed major copy number (for CNA regions)
+Wm = MDA231$Wm; Wm ## observed minor copy number (for CNA regions)
+epsilonM = MDA231$epsilonM ## standard deviation of WM, pre-fixed here
+epsilonm = MDA231$epsilonm ## standard deviation of Wm, pre-fixed here
+## whether CNA regions harbor specific CNAs (only needed for overlapping CNAs)
+C = MDA231$C; C
+Y = MDA231$Y; Y ## whether SNAs are affected by CNAs
+
+K = 3:5 # number of subclones
+numchain = 15 # number of chains with random initiations
+sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
+                          epsilonm = epsilonm, C = C, Y = Y, K = K, 
+                          numchain = numchain, max.simrun = 100000,
+                          min.simrun = 20000, writeskip = 200,
+                          projectname = projectname, cell.line = TRUE,
+                          plot.likelihood = TRUE)
+  ```
   
-  Just like SNAs, there will likely to be CNAs carried by small fractions of the cells, or that reside in hard-to-call regions of the genome, which are not detected. The former scenario, in particular, includes CNAs which may be informative about rare subclones. We do not assume that the CNAs (and SNAs) given to Canopy comprise all mutations that are carried by the sample, and similarly, do not attempt to claim that Canopy detects all subclones or resolves all branches of the evolutionary tree. Our goal is only to estimate all of the subclones that have representation among the set of input CNAs and SNAs, which are, inherently, limited in resolution by the experimental protocol (sequencing platform and coverage, number of tumor slices, etc.) We believe this is the best that can be achieved under current settings.
+  (2) **canopy.sample.nocna** for cases where there is no CNA input:
+  
+  
+  (3) **canopy.sample.cluster** for cases where SNAs are pre-clustered:
+  
+  
+  (4) **canopy.sample.cluster** for cases where there is no CNA input and SNAs are pre-clustered:
