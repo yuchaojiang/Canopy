@@ -1,21 +1,24 @@
+setwd("~/Dropbox/canopy_1.2")
+setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######################################################
 #######################################################
 #######                                         #######
-#######             Try it yourself             #######
+#######            Toy: try it yourself         #######
 #######                                         #######
 #######################################################
 #######################################################
+setwd("/home/stat/yuchaoj/canopy1.2")
 library(Canopy)
-data(toy2)
-projectname = 'toy2'
-R = toy2$R; X = toy2$X; WM = toy2$WM; Wm = toy2$Wm
-epsilonM = toy2$epsilonM; epsilonm = toy2$epsilonm; Y = toy2$Y
-true.tree = toy2$true.tree  # true underlying tree
+data(toy)
+projectname = 'toy'
+R = toy$R; X = toy$X; WM = toy$WM; Wm = toy$Wm
+epsilonM = toy$epsilonM; epsilonm = toy$epsilonm; Y = toy$Y
 
-K = 3:6; numchain = 20
+K = 3:5; numchain = 15
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
-                          numchain = numchain, simrun = 100000, writeskip = 200,
+                          numchain = numchain, max.simrun = 100000,
+                          min.simrun = 10000, writeskip = 200,
                           projectname = projectname, cell.line = FALSE,
                           plot.likelihood = TRUE)
 save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
@@ -30,12 +33,11 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 #######################################################
 #######################################################
 library(Canopy)
-data(toy2)
-projectname='toy2'
-
+data(toy)
+projectname='toy'
 load(paste(projectname, '_postmcmc_image.rda', sep=''))
-burnin = 100
-thin = 10
+burnin = 10
+thin = 5
 # If pdf = TRUE, a pdf will be generated.
 bic = canopy.BIC(sampchain = sampchain, projectname = projectname, K = K,
                  numchain = numchain, burnin = burnin, thin = thin, pdf = TRUE)

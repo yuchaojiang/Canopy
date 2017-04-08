@@ -1,3 +1,11 @@
+setwd("~/Dropbox/canopy_1.2")
+setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
+
+install.packages('Canopy_1.2.0.tar.gz',repos = NULL, type="source")
+
+
+setwd("~/Dropbox/canopy_1.2")
+setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######################################################
 #######################################################
 #######                                         #######
@@ -5,7 +13,7 @@
 #######                                         #######
 #######################################################
 #######################################################
-
+setwd("/home/stat/yuchaoj/canopy1.2")
 library(Canopy)
 data("MDA231")
 projectname = MDA231$projectname ## name of project
@@ -28,11 +36,12 @@ Y = MDA231$Y; Y ## whether SNAs are affected by CNAs
 #######################################################
 #######################################################
 
-K = 3:6 # number of subclones
-numchain = 20 # number of chains with random initiations
+K = 3:5 # number of subclones
+numchain = 15 # number of chains with random initiations
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = C, Y = Y, K = K, 
-                          numchain = numchain, simrun = 100000, writeskip = 200,
+                          numchain = numchain, max.simrun = 100000,
+                          min.simrun = 20000, writeskip = 200,
                           projectname = projectname, cell.line = TRUE,
                           plot.likelihood = TRUE)
 save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
@@ -46,11 +55,13 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 #######                                         #######
 #######################################################
 #######################################################
+setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
+setwd("~/Dropbox/canopy_1.2")
 library(Canopy)
 projectname='MDA231'
 load(paste(projectname, '_postmcmc_image.rda', sep=''))
 burnin = 100
-thin = 10
+thin = 5
 # If pdf = TRUE, a pdf will be generated.
 bic = canopy.BIC(sampchain = sampchain, projectname = projectname, K = K,
                  numchain = numchain, burnin = burnin, thin = thin, pdf = TRUE)
@@ -93,6 +104,11 @@ cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
 output.tree = canopy.output(post, config.i, C)
 pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
 canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
-# plot posterior tree with second configuration
-output.tree = canopy.output(post, 1, C)
-canopy.plottree(output.tree, pdf=TRUE, pdf.name = paste(projectname, '_second_config.pdf', sep = ''))
+
+# plot posterior tree with third configuration
+output.tree = canopy.output(post, 3, C)
+canopy.plottree(output.tree, pdf=TRUE, pdf.name = paste(projectname, '_third_config.pdf', sep = ''))
+
+
+
+
