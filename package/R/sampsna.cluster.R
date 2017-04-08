@@ -1,0 +1,10 @@
+sampsna.cluster=function(tree){
+  s=nrow(tree$sna.cluster)
+  mut=tree$sna.cluster
+  mut.change=sample.int(1,n=s)
+  while(all(mut==tree$sna.cluster)){
+      mut.edge=sample(2:nrow(tree$edge),size=length(mut.change),replace=TRUE)
+      mut[mut.change,2:3]=tree$edge[mut.edge,1:2]
+  }
+  return(mut)
+}

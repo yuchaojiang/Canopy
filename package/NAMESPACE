@@ -1,10 +1,13 @@
 export(addsamptree, canopy.BIC, canopy.output, canopy.plottree,
-       canopy.post, canopy.sample, getclonalcomposition, getCMCm,
-       getCZ, getlikelihood, getQ, getVAF, getZ, initialcna,
-       initialcnacopy, initialP, initialsna, plotpostlikelihood,
-       sampcna, sampcnacopy, sampP, sampsna, sortcna)
-import(ape, fields)
+       canopy.post, canopy.sample, canopy.sample.nocna, canopy.sample.cluster,
+       canopy.sample.cluster.nocna, canopy.cluster, canopy.cluster.Estep,
+       canopy.cluster.Mstep, getclonalcomposition, getCMCm, getCZ, 
+       getlikelihood, getlikelihood.sna, getQ, getVAF, getZ, initialcna,
+       initialcnacopy, initialP, initialsna, sampcna, sampcnacopy, sampP, 
+       sampsna, sampsna.cluster, sortcna)
+import(ape, fields, pheatmap, scatterplot3d)
 importFrom("grDevices", "dev.off", "pdf")
 importFrom("graphics", "abline", "axis", "image", "layout", "par", "plot",
            "points", "text", "title")
-importFrom("stats", "dnorm", "rmultinom", "runif")
+importFrom("stats", "dnorm", "rmultinom", "runif", "sd")
+importFrom("utils", "write.table")

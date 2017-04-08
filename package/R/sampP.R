@@ -10,8 +10,7 @@ sampP = function(tree, cell.line) {
         }
         P = round(P, 3)
         if (ncol(P) == 1) {
-            P[nrow(P), ] = 1 - colSums(as.matrix(P[1:(nrow(P) - 1), 
-                ]))
+            P[nrow(P), ] = 1 - colSums(as.matrix(P[1:(nrow(P) - 1), ]))
         } else {
             P[nrow(P), ] = 1 - colSums(P[1:(nrow(P) - 1), ])
         }

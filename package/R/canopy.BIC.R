@@ -12,6 +12,7 @@ canopy.BIC = function(sampchain, projectname, K, numchain, burnin, thin,
         s = nrow(temp.tree$VAF)
         n = ncol(temp.tree$VAF)
         t = ncol(temp.tree$Q)
+        if(is.null(t)){t=0}
         numchain = length(sampchaink)
         # burn-in
         samptreenew = sampchaink[[1]][(burnin + 1):length(sampchaink[[1]])]
@@ -38,12 +39,12 @@ canopy.BIC = function(sampchain, projectname, K, numchain, burnin, thin,
             samptreelik[treei] = samptreethin[[treei]]$likelihood
         }
         lik.temp = mean(samptreelik)
-        cat("k =", k, ": mean likelihood", lik.temp, ".\n")
         K.data = 2 * (2 * k - 3) + 2 * t + s + (k - 1) * n
         N = s * n * 2 + t * n * 4 + s
         BIC.temp = 2 * lik.temp - K.data * log(N)
         lik.k[ki] = lik.temp
         BIC[ki] = BIC.temp
+        cat("k =", k, ": mean likelihood", lik.temp,'; BIC',BIC.temp, ".\n")
         ki = ki + 1
     }
     if (pdf) {

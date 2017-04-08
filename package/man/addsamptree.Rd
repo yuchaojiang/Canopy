@@ -8,15 +8,13 @@ To determine whether the sampled tree will be accepted by comparing the
 likelihood, used in \code{\link{canopy.sample}.}
 }
 \usage{
-addsamptree(tree,tree.new,diagnostics)
+addsamptree(tree,tree.new)
 }
 \arguments{
 \item{tree}{
     input tree (current)}
 \item{tree.new}{
     input tree (newly sampled)}
-\item{diagnostics}{
-    whether diagnostics should be output}
 }
 \value{
 returned tree (either retain the old tree or accept the new tree).
@@ -44,6 +42,6 @@ tree.new$Q = getQ(tree.new, Y, C)
 tree.new$H = tree.new$Q
 tree.new$VAF = getVAF(tree.new, Y)
 tree.new$likelihood = getlikelihood(tree.new, R, X, WM, Wm, epsilonM, epsilonm)
-tree = addsamptree(MDA231_tree,tree.new, diagnostics = TRUE)
+tree = addsamptree(MDA231_tree,tree.new)
 }
 \keyword{ package }

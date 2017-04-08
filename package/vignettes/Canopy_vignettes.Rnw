@@ -39,9 +39,11 @@ populations (MCPs) were in vivo selected from either bone or lung metastasis
 and grew into phenotypically stable and metastatically competent cancer cell
 lines. The parental line as well as the MCP sublines were whole-exome sequenced 
 with somatic SNAs and CNAs profiled. \verb@Canopy@ is used to infer metastatic
-phylogeny.\\
+phylogeny. Code for analysis of this dataset is broken down below
+with explanations and is further available
+\href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/canopy_demo_MDA231.R}{\textcolor{blue}{here}}.\\
 
-\verb@Canopy@'s \textbf{webpage} is \href{https://github.com/yuchaojiang/Canopy}{\textcolor{blue}{here}}. A \textbf{demo code} for \verb@Canopy@ can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code}{\textcolor{blue}{here}}.
+\verb@Canopy@'s \textbf{webpage} is \href{https://github.com/yuchaojiang/Canopy}{\textcolor{blue}{here}}. \textbf{Demo codes} for \verb@Canopy@ under various settings/modes can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code}{\textcolor{blue}{here}}.
 Script for dataset from the MDA231 study is attached below with step-by-step decomposition and explanation. Online \textbf{Q\&A forum} for
 \verb@Canopy@ is available \href{https://groups.google.com/d/forum/canopy_phylogeny}{\textcolor{blue}{here}}.
 If you've any questions regarding the software, you can also email us at
@@ -49,15 +51,15 @@ If you've any questions regarding the software, you can also email us at
 
 \section*{1. Installation}
 
-R package \verb$Canopy$ is availble from \verb@CRAN@ (\href{https://cran.r-project.org/web/packages/Canopy/index.html}{https://cran.r-project.org/web/packages/Canopy}):
+R package \verb$Canopy$ is availble from \verb@CRAN@ (\href{https://cran.r-project.org/web/packages/Canopy/index.html}{https://CRAN.R-project.org/package=Canopy}):
 <<Installation1, eval=FALSE>>=
-install.packages('Canopy')
+install.packages('Canopy')  # updated every 3-4 months
 @
 A devel version can be installed from GitHub ((\href{https://github.com/yuchaojiang/Canopy}{https://github.com/yuchaojiang/Canopy}):
 <<Installation2, eval=FALSE>>=
 install.packages("devtools")
 library(devtools)
-install_github("yuchaojiang/Canopy/package")
+install_github("yuchaojiang/Canopy/package")  # STRONGLY recommended
 @
 
 
@@ -69,15 +71,19 @@ for somatic CNAs. For SNAs, let the matrices $R$ and $X$ be, respectively,
 the number of reads containing the mutant allele and the total number of reads
 for each locus across all samples. The ratio $R/X$ is the proportion of reads
 supporting the mutant allele, known as the variant allele frequency. For CNAs,
-\verb@Canopy@ directly takes output from
-\href{http://nar.oxfordjournals.org/content/43/4/e23}{FALCON},
-\href{https://cran.r-project.org/web/packages/falconx/index.html}{FALCON-X}, 
-or other allele-specific copy number estimation methods. These outputs are in
-the form of estimated major and minor copy number ratios, respectively denoted
+\verb@Canopy@ directly takes output from allele-specific copy number estimation
+softwares, such as 
+\href{https://CRAN.R-project.org/package=falconx}{FALCON-X} or
+\href{https://CRAN.R-project.org/package=sequenza}{Sequenza}. These outputs are in the form of estimated major and minor copy number ratios, respectively denoted
 by $W^M$ and $W^m$, with their corresponding standard errors $\epsilon^M$ and
 $\epsilon^m$. Matrix $Y$ specifies whether SNAs are affected by CNAs; matrix $C$
 specifies whether CNA regions harbor specific CNAs (this input is only needed if
 overlapping CNA events are observed).
+\\\\
+How to generate CNA and SNA data input is futher discussed 
+\href{https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md}{\textcolor{blue}{here}}. 
+How to select \textit{informative} SNA and CNA input is discussed 
+\href{https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_choice.md}{\textcolor{blue}{here}}.
 \\\\
 Below is demo data input from project MDA231 (first case study in our paper).
 
@@ -99,12 +105,106 @@ C = MDA231$C; C
 Y = MDA231$Y; Y ## whether SNAs are affected by CNAs
 @
 
-\subsection*{2.2 MCMC sampling}
+\subsection*{2.2 Binomial clustering of SNAs}
+
+A multivariate binomial mixture clustering step can be applied to the SNAs before MCMC sampling. We show in our paper via simulations that this pre-clustering method helps the Markov chain converge faster with smaller estimation error (especially when mutations show clear cluster patterns by visualization). This clustering step can also remove likely false positives before feeding the mutations to the MCMC algorithm.
+\\\\
+Below is a toy example, where three bulk tumor samples were in silico simulated from a tree of 4 clones/leaves. The 5 tree segments (excluding the leftmost branch, which corresponds to the normal clone) separate 200 mutations into 5 mutation clusters. More detailed demo codes for clustering can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/clustering/binomial_EM.R}{\textcolor{blue}{here}}. Detailed methods can be found in the \href{http://www.pnas.org/content/suppl/2016/08/26/1522203113.DCSupplemental/pnas.1522203113.sapp.pdf}{\textcolor{blue}{supplements}} of our paper under section Binomial mixture clustering. BIC is used for model selection. 2D (two longitudinal/spatial samples) or 3D (three samples) plots are generated for visualization.
+
+<<SNA_clustering>>=
+library(Canopy)
+data(toy3)
+R=toy3$R; X=toy3$X # 200 mutations across 3 samples
+num_cluster=2:9 # Range of number of clusters to run
+num_run=10 # How many EM runs per clustering step for each mutation cluster wave
+canopy.cluster=canopy.cluster(R = R,
+                              X = X,
+                              num_cluster = num_cluster,
+                              num_run = num_run)
+bic_output=canopy.cluster$bic_output # BIC for model selection (# of clusters)
+Mu=canopy.cluster$Mu # VAF centroid for each cluster
+Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
+@
+
+
+\begin{figure}[H]
+\begin{center}
+\setkeys{Gin}{width=0.8\linewidth}
+<<label=fig1,fig=TRUE,echo=FALSE,height=4,width=8>>=
+par(mfrow=c(1,2))
+plot(num_cluster,bic_output,xlab='Number of mutation clusters',ylab='BIC',type='b',main='BIC for model selection')
+abline(v=num_cluster[which.max(bic_output)],lty=2)
+colc=c('green4','red3','royalblue1','darkorange1','royalblue4',
+       'mediumvioletred','seagreen4','olivedrab4','steelblue4','lavenderblush4')
+pchc=c(17,0,1,15,3,16,4,8,2,16)
+library(scatterplot3d)
+scatterplot3d((R/X)[,1],(R/X)[,2],(R/X)[,3],xlim=c(0,max(R/X)),ylim=c(0,max(R/X)),zlim=c(0,max(R/X)),color=colc[sna_cluster],pch=pchc[sna_cluster],
+              xlab='Sample1 VAF',ylab='Sample2 VAF',zlab='Sample3 VAF',
+              main='VAF clustering across 3 samples')
+par(mfrow=c(1,1))
+@
+\end{center}
+\caption{BIC to select the optimal number of clusters and Binomial mixture 
+clustering results.}
+\label{fig:one}
+\end{figure}
+
+
+Below is real dataset from Ding et al. (Nature 2012), where a leukemia patient was sequenced at two timepoints -- primary tumor (sample 1) and relapse genome (sample 2). The real dataset is noisier and can potentially contain false positives for somatic mutations. We thus include in the mixture a multivariate uniform component on the unit interval, which corresponds to mutations that have high standard errors during sequencing or that are likely to be false positives. The code and SNA input for this dataset can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/clustering/binomial_EM.R}{\textcolor{blue}{here}}.
+<<SNA_clustering_AML43>>=
+library(Canopy)
+data(AML43)
+R=AML43$R; X=AML43$X
+num_cluster=4 # Range of number of clusters to run
+num_run=6 # How many EM runs per clustering step for each mutation cluster wave
+Tau_Kplus1=0.05 # Pre-specified proportion of noise component
+Mu.init=cbind(c(0.01,0.15,0.25,0.45),
+              c(0.2,0.2,0.01,0.2)) # Initial value for centroid
+canopy.cluster=canopy.cluster(R = R,
+                              X = X,
+                              num_cluster = num_cluster,
+                              num_run = num_run,
+                              Mu.init = Mu.init,
+                              Tau_Kplus1=Tau_Kplus1)
+Mu=canopy.cluster$Mu # VAF centroid for each cluster
+Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
+
+R.qc=R[sna_cluster<=4,] # exclude mutations in the noise cluster
+X.qc=X[sna_cluster<=4,]
+sna_cluster.qc=sna_cluster[sna_cluster<=4]
+
+R.cluster=round(Mu*100)  # Generate pseudo-SNAs correponding to each cluster. 
+X.cluster=pmax(R.cluster,100)   # Total depth is set at 100 but can be obtained as median instead 
+rownames(R.cluster)=rownames(X.cluster)=paste('SNA.cluster',1:4,sep='')
+@
+
+\begin{figure}[H]
+\begin{center}
+\setkeys{Gin}{width=0.5\linewidth}
+<<label=fig2,fig=TRUE,echo=FALSE,height=4,width=4>>=
+Mu=canopy.cluster$Mu # VAF centroid for each cluster
+Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
+colc=c('green4','red3','royalblue1','darkorange1','royalblue4',
+       'mediumvioletred','seagreen4','olivedrab4','steelblue4','lavenderblush4')
+pchc=c(17,0,1,15,3,16,4,8,2,16)
+plot((R/X)[,1],(R/X)[,2],xlab='Sample1 VAF',ylab='Sample2 VAF',col=colc[sna_cluster],pch=pchc[sna_cluster],ylim=c(0,max(R/X)),xlim=c(0,max(R/X)))
+@
+\end{center}
+\caption{Binomial mixture clustering on real dataset of primary tumor and relapse
+genome.}
+\label{fig:two}
+\end{figure}
+
+
+\subsection*{2.3 Phylogenetic tree (unknown)}
 Each sampled tree is modeled as a list by \verb@Canopy@. Below are the tree 
 elements of the most likely tree from the project MDA231 (first case study in
-the paper). This most likely tree is obtained from the posterior distribution 
+the paper). The most likely tree is obtained from the posterior distribution 
 in the tree space from the MCMC sampling (detailed in section 2.3). How to
-visualize/plot the sampled trees is in section 2.6.
+visualize/plot the sampled trees is discussed later.
 
 <<Tree_elements1>>=
 data('MDA231_tree')
@@ -115,7 +215,6 @@ MDA231_tree$Cm # Minor copy per clone for each CNA
 MDA231_tree$Q # whether an SNA precedes a CNA
 @
 
-\newpage
 <<Tree_elements2>>=
 MDA231_tree$H # if an SNA precedes a CNA, whether it resides in the major copy
 MDA231_tree$P # clonal compostion for each sample
@@ -123,7 +222,7 @@ MDA231_tree$VAF # VAF based on current tree structure
 @
 
 
-\subsection*{2.3 MCMC sampling}
+\subsection*{2.4 MCMC sampling}
 \verb@Canopy@ samples in subtree space with varying number of subclones 
 (denoted as $K$) by a Markov chain Monte Carlo (MCMC) method. A plot of
 posterior likelihood (pdf format) will be generated for each subtree space and
@@ -135,15 +234,20 @@ larger value of which is in favor of not getting stuck in local optima) and
 longer chains (\verb@simrun@ specifies number of iterations per chain).
 MCMC sampling is the most computationally heavy step in \verb@Canopy@. It is 
 recommended that jobs are run in parallel on high-performance cluster.
-
+\\\\
+There are four modes of MCMC sampling embedded in Canopy: (1) \verb@canopy.sample@
+which takes both SNA and CNA as input by default; (2) \verb@canopy.sample.nocna@ for cases where there is no CNA input; (3) \verb@canopy.sample.cluster@ for cases where SNAs are pre-clustered by the Binomial mixture EM algorithm; (4) \verb@canopy.sample.cluster.nocna@ for cases where there is no CNA input and SNAs are pre-clustered by the Binomial mixture EM algorithm. More details can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/instruction/sampling_mode.md}{\textcolor{blue}{here}}.
+\\\\
+Below is sampling code for the MDA231 dataset where both SNA and CNA are used as input.
 
 <<Sampling1, eval=FALSE>>=
 K = 3:6 # number of subclones
 numchain = 20 # number of chains with random initiations
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
             epsilonm = epsilonm, C = C, Y = Y, K = K, numchain = numchain, 
-            simrun = 50000, writeskip = 200, projectname = projectname,
-            cell.line = TRUE, plot.likelihood = TRUE)
+            max.simrun = 50000, min.simrun = 10000, 
+            writeskip = 200, projectname = projectname, cell.line = TRUE, 
+            plot.likelihood = TRUE)
 save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
            compress = 'xz')
 @
@@ -152,8 +256,7 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 <<Sampling2, echo=FALSE>>=
 data("MDA231_sampchain")
 sampchain = MDA231_sampchain
-k = 3
-K = 3:6
+k = 3; K = 3:6
 sampchaink = MDA231_sampchain[[which(K==k)]]
 @
 
@@ -165,12 +268,14 @@ length(sampchain[[which(K==4)]][[1]]) ## number of posterior trees in each chain
 @
 
 
-\subsection*{2.4 BIC for model selection}
+\subsection*{2.5 BIC for model selection}
 \verb@Canopy@ uses BIC as a model selection criterion to determine to optimal
 number of subclones.
 <<BIC>>=
 burnin = 100
-thin = 10
+thin = 5 # If there is error in the bic and canopy.post step below, make sure
+         # burnin and thinning parameters are wisely selected so that there are
+         # posterior trees left.
 bic = canopy.BIC(sampchain = sampchain, projectname = projectname, K = K,
                numchain = numchain, burnin = burnin, thin = thin, pdf = FALSE)
 optK = K[which.max(bic)]
@@ -179,7 +284,7 @@ optK = K[which.max(bic)]
 \begin{figure}[H]
 \begin{center}
 \setkeys{Gin}{width=.6\linewidth}
-<<label=fig1,fig=TRUE,echo=FALSE,height=4,width=8>>=
+<<label=fig3,fig=TRUE,echo=FALSE,height=4,width=8>>=
 # Note: this segment is soley for generating BIC plot in the vignettes.
 # Use Canopy.BIC() with pdf = TRUE to generate this plot directly.
 par(mfrow=c(1,2))
@@ -207,11 +312,11 @@ title('BIC for model selection')
 \end{center}
 \caption{Posterior likelihood of MCMC (chains are colored differently) and BIC
 as a model selection method.}
-\label{fig:one}
+\label{fig:three}
 \end{figure}
 
 
-\subsection*{2.5 Posterior evaluation of sampled trees}
+\subsection*{2.6 Posterior evaluation of sampled trees}
 
 \verb@Canopy@ then runs a posterior evaluation of all sampled trees by MCMC. If
 modes of posterior probabilities (second column of \verb@config.summary@)
@@ -234,15 +339,16 @@ print(config.summary)
 @
 
 
-\subsection*{2.6 Tree output and plotting}
+\subsection*{2.7 Tree output and plotting}
 
 One can then use \verb@Canopy@ to output and plot the most likely tree (i.e., 
 tree with the highest posterior likelihood). Mutations, clonal frequencies, and
 tree topology, etc., of the tree are obtained from the posterior distributions
 of subtree space with trees having the same configuration. In our MDA231 
-example, the most likely tree is the tree having configuration 3.
-
-
+example, the most likely tree is the tree with configuration 3.
+\\\\
+\textbf{Note}: A separate txt file can be generated (with txt=TRUE and txt.name='*.txt') if the figure legend of mutational profiles (texts below the phylogenetic tree) in the plot is too long to be fitted entirely.
+\\\\
 <<Plot>>=
 config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood!\n')
@@ -252,20 +358,20 @@ canopy.plottree(output.tree)
 
 # plot the tree with configuration 1 in the posterior tree space
 output.tree = canopy.output(post, 1, C)
-canopy.plottree(output.tree,pdf=TRUE,pdf.name = 
+canopy.plottree(output.tree, pdf=TRUE, pdf.name = 
                     paste(projectname,'_first_config.pdf',sep=''))
 @
 
 
 \begin{figure}[H]
 \begin{center}
-\setkeys{Gin}{width=0.6\linewidth}
-<<label=fig2,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
+\setkeys{Gin}{width=0.7\linewidth}
+<<label=fig4,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
 canopy.plottree(output.tree)
 @
 \end{center}
 \caption{Most likely tree by Canopy for project MDA231.}
-\label{fig:two}
+\label{fig:four}
 \end{figure}
 \newpage
 
@@ -289,24 +395,24 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
 @
 The most likely tree is shown below. There should be only one tree configuration 
 from the posterior tree space. The code for this toy dataset analysis 
-can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_toy.R}{\textcolor{blue}{here}}. 
+can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/canopy_demo_toy.R}{\textcolor{blue}{here}}. 
 
 \begin{figure}[H]
 \begin{center}
 \setkeys{Gin}{width=0.65\linewidth}
-<<label=fig3,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
+<<label=fig5,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
 data(toy)
 canopy.plottree(toy$besttree, txt = FALSE, pdf = FALSE)
 @
 \end{center}
 \caption{Most likely tree by Canopy for simulated toy dataset.}
-\label{fig:three}
+\label{fig:five}
 \end{figure}
 \newpage
 The second toy example has a different tree topology. Feel free to try Canopy 
 on this dataset too! There should be also just one tree configuration as is 
 shown below from the posterior tree space.  The code for this toy dataset 
-analysis can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/Canopy_toy2.R}{\textcolor{blue}{here}}. 
+analysis can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/canopy_demo_toy2.R}{\textcolor{blue}{here}}. 
 
 <<Try it your self2, eval = FALSE>>=
 library(Canopy)
@@ -314,12 +420,12 @@ data(toy2)
 projectname = 'toy2'
 R = toy2$R; X = toy2$X; WM = toy2$WM; Wm = toy2$Wm
 epsilonM = toy2$epsilonM; epsilonm = toy2$epsilonm; Y = toy2$Y
-true.tree = toy2$true.tree
-
-K = 3:6; numchain = 10
+true.tree = toy2$true.tree  # true underlying tree
+K = 3:6; numchain = 15
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
-                          numchain = numchain, simrun = 50000, writeskip = 200,
+                          numchain = numchain, max.simrun = 100000,
+                          min.simrun = 10000, writeskip = 200,
                           projectname = projectname, cell.line = FALSE,
                           plot.likelihood = TRUE)
 @
@@ -327,15 +433,45 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
 \begin{figure}[H]
 \begin{center}
 \setkeys{Gin}{width=0.7\linewidth}
-<<label=fig4,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
+<<label=fig6,fig=TRUE,echo=FALSE,height=6,width=5.9>>=
 data(toy2)
 canopy.plottree(toy2$true.tree, txt = FALSE, pdf = FALSE)
 @
 \end{center}
 \caption{Most likely tree by Canopy for simulated toy dataset 2.}
-\label{fig:four}
+\label{fig:six}
 \end{figure}
 
+
+The third toy example consists of three bulk tumor samples, in silico simulated from a tree of 4 clones/leaves. The 5 tree segments (excluding the leftmost branch, which corresponds to the normal clone) separate 200 mutations into 5 mutation clusters. The SNA clustering details are outlined in section ``Binomial clustering of SNAs". The code for this toy dataset analysis is briefly attached below. Code in more details with visualization and posterior analysis can be found \href{https://github.com/yuchaojiang/Canopy/blob/master/demo_code/canopy_demo_toy3.R}{\textcolor{blue}{here}}. 
+
+<<Try it your self3, eval = FALSE>>=
+library(Canopy)
+data(toy3)
+R=toy3$R; X=toy3$X
+num_cluster=2:9 # Range of number of clusters to run
+num_run=10 # How many EM runs per clustering step for each mutation cluster wave
+canopy.cluster=canopy.cluster(R = R,
+                              X = X,
+                              num_cluster = num_cluster,
+                              num_run = num_run)
+
+bic_output=canopy.cluster$bic_output # BIC for model selection (# of clusters)
+Mu=canopy.cluster$Mu # VAF centroid for each cluster
+Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
+
+projectname='toy3'
+K = 3:5 # number of subclones
+numchain = 15 # number of chains with random initiations
+sampchain = canopy.sample.cluster.nocna(R = R, X = X, sna_cluster = sna_cluster,
+                                        K = K, numchain = numchain, 
+                                        max.simrun = 100000, min.simrun = 20000,
+                                        writeskip = 200, projectname = projectname,
+                                        cell.line = FALSE, plot.likelihood = TRUE)
+save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
+           compress = 'xz')
+@
 
 \section*{4. Citation}
 Assessing intra-tumor heterogeneity and tracking longitudinal and spatial clonal

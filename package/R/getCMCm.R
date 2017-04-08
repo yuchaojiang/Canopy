@@ -19,19 +19,30 @@ getCMCm = function(tree, C) {
             child.node = parent.node
             if (child.node == (k + 1)) 
                 break
-            parent.node = tree$edge[which(tree$edge[, 2] == child.node), 
-                1]
+            parent.node = tree$edge[which(tree$edge[, 2] == child.node), 1]
         }
     }
     clonal.cna[[1]] = 0
-    for (i in 1:nrow(C)) {
-        cnai = which(C[i, ] == 1)
-        cnai = cnai[rank(tree$cna[cnai, 2], ties.method = "random")]
-        for (s in cnai) {
-            for (t in 2:k) {
-                if (is.element(s, clonal.cna[[t]])) {
-                  CM[i, t] = tree$cna.copy[1, s]
-                  Cm[i, t] = tree$cna.copy[2, s]
+    
+    if(all(apply(C,1,sum)==1)){
+        Z = matrix(nrow = nrow(tree$cna), ncol = k, data = 0)
+        for (ki in 2:k) {
+            Z[clonal.cna[[ki]], ki] = 1
+        }
+        CM.temp=as.matrix(tree$cna.copy[1,])%*%rep(1,ncol(Z))*Z
+        Cm.temp=as.matrix(tree$cna.copy[2,])%*%rep(1,ncol(Z))*Z
+        CM[Z==1]=CM.temp[Z==1]
+        Cm[Z==1]=Cm.temp[Z==1]
+    } else{
+        for (i in 1:nrow(C)) {
+            cnai = which(C[i, ] == 1)
+            cnai = cnai[rank(tree$cna[cnai, 2], ties.method = "random")]
+            for (s in cnai) {
+                for (t in 2:k) {
+                    if (is.element(s, clonal.cna[[t]])) {
+                        CM[i, t] = tree$cna.copy[1, s]
+                        Cm[i, t] = tree$cna.copy[2, s]
+                    }
                 }
             }
         }

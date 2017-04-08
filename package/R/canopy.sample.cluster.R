@@ -1,6 +1,9 @@
-canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL, 
-    Y, K, numchain, max.simrun, min.simrun, writeskip, projectname, 
-    cell.line = NULL, plot.likelihood = NULL) {
+canopy.sample.cluster = function(R, X, sna_cluster, WM, Wm, epsilonM, epsilonm, C = NULL, 
+                         Y, K, numchain, max.simrun, min.simrun, writeskip, projectname, 
+                         cell.line = NULL, plot.likelihood = NULL) {
+    if(length(sna_cluster)!=nrow(R)){
+        stop('Length of sna_cluster should be the same as row numbers of R and X!')
+    }
     if (!is.matrix(R)) {
         stop("R should be a matrix!")
     }
@@ -49,10 +52,10 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
             ###################################### Tree initialization #####
             text = paste(paste(paste(paste("(", 1:(k - 1), ",", sep = ""), 
                                      collapse = ""), k, sep = ""), paste(rep(")", (k - 1)), 
-                                     collapse = ""), ";", sep = "")
+                                                                         collapse = ""), ";", sep = "")
             runif.temp=runif(1)
             if(k == 5 & runif.temp<0.5){
-                    text = c('(1,((2,3),(4,5)));')
+                text = c('(1,((2,3),(4,5)));')
             }else if(k == 6 & runif.temp < 1/3){
                 text = c('(1,((2,3),(4,(5,6))));')
             }else if(k == 6 & runif.temp > 2/3){
@@ -65,7 +68,12 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
                 text = c('(1,((2,(3,4)),(5,(6,7))));')
             }
             tree <- read.tree(text = text)
-            tree$sna = initialsna(tree, sna.name)
+            tree$sna.cluster=initialsna(tree,paste('cluster',unique(sna_cluster),sep=''))
+            sna.mat = cbind(sna=1:nrow(R),(tree$sna.cluster)[sna_cluster,2:3])
+            colnames(sna.mat) = c("sna", "sna.st.node", "sna.ed.node")
+            rownames(sna.mat) = sna.name
+            tree$sna=sna.mat
+            #tree$sna = initialsna(tree, sna.name)
             # if(k>=5){tree$relation=getrelation(tree)}
             tree$Z = getZ(tree, sna.name)
             tree$P = initialP(tree, sampname, cell.line)
@@ -76,10 +84,10 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
             tree$Cm = CMCm[[2]]  # major/minor copy per clone
             tree$Q = getQ(tree, Y, C)
             tree$H = tree$Q  # start as all SNAs that precede CNAs land 
-                             # on major copies
+            # on major copies
             tree$VAF = getVAF(tree, Y)
             tree$likelihood = getlikelihood(tree, R, X, WM, Wm, epsilonM, 
-                epsilonm)
+                                            epsilonm)
             ###################################### Sample in tree space #####
             sampi = 1
             writei = 1
@@ -87,29 +95,55 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
             samptree.lik=rep(NA, max.simrun)
             samptree.accept=rep(NA, max.simrun)
             samptree.accept.rate=rep(NA, max.simrun)
-            while (sampi <= max.simrun) {  # sampi: MCMC iteration number
-                ######### sample sna positions
-                tree.new = tree
-                tree.new$sna = sampsna(tree)
-                tree.new$Z = getZ(tree.new, sna.name)
-                tree.new$Q = getQ(tree.new, Y, C)
-                tree.new$H = tree.new$Q
-                tree.new$VAF = getVAF(tree.new, Y)
-                tree.new$likelihood = getlikelihood(tree.new, R, X, 
-                  WM, Wm, epsilonM, epsilonm)
-                tree.temp=addsamptree(tree,tree.new)
-                tree=tree.temp[[1]]
-                samptree.accept[sampi]=tree.temp[[2]]
-                if (sampi%%writeskip == 0) {
-                  samptree[[writei]] = tree
-                  writei = writei + 1
+            while(sampi <= max.simrun){
+                if( sampi <= min.simrun){
+                    ######### sample sna mutation cluster positions
+                    tree.new=tree
+                    tree.new$sna.cluster=sampsna.cluster(tree)
+                    sna.mat = cbind(sna=1:nrow(R),(tree.new$sna.cluster)[sna_cluster,2:3])
+                    colnames(sna.mat) = c("sna", "sna.st.node", "sna.ed.node")
+                    rownames(sna.mat) = sna.name
+                    tree.new$sna=sna.mat
+                    tree.new$Z = getZ(tree.new, sna.name)
+                    tree.new$Q = getQ(tree.new, Y, C)
+                    tree.new$H = tree.new$Q
+                    tree.new$VAF = getVAF(tree.new, Y)
+                    tree.new$likelihood = getlikelihood(tree.new, R, X, 
+                                                        WM, Wm, epsilonM, epsilonm)
+                    tree.temp=addsamptree(tree,tree.new)
+                    tree=tree.temp[[1]]
+                    samptree.accept[sampi]=tree.temp[[2]]
+                    if (sampi%%writeskip == 0) {
+                        samptree[[writei]] = tree
+                        writei = writei + 1
+                    }
+                    samptree.lik[sampi]=tree$likelihood
+                    samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
+                    sampi = sampi + 1
+                } else{
+                    ######### sample sna positions
+                    tree.new = tree
+                    tree.new$sna = sampsna(tree)
+                    tree.new$Z = getZ(tree.new, sna.name)
+                    tree.new$Q = getQ(tree.new, Y, C)
+                    tree.new$H = tree.new$Q
+                    tree.new$VAF = getVAF(tree.new, Y)
+                    tree.new$likelihood = getlikelihood(tree.new, R, X, 
+                                                        WM, Wm, epsilonM, epsilonm)
+                    tree.temp=addsamptree(tree,tree.new)
+                    tree=tree.temp[[1]]
+                    samptree.accept[sampi]=tree.temp[[2]]
+                    if (sampi%%writeskip == 0) {
+                        samptree[[writei]] = tree
+                        writei = writei + 1
+                    }
+                    samptree.lik[sampi]=tree$likelihood
+                    samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
+                    if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+                        (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+                        (samptree.accept.rate[sampi] <= 0.1)) break
+                    sampi = sampi + 1
                 }
-                samptree.lik[sampi]=tree$likelihood
-                samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-                if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-                    (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
-                    (samptree.accept.rate[sampi] <= 0.1)) break
-                sampi = sampi + 1
                 ######## sample cna positions
                 tree.new = tree
                 tree.new$cna = sampcna(tree)
@@ -120,13 +154,13 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
                 tree.new$H = tree.new$Q
                 tree.new$VAF = getVAF(tree.new, Y)
                 tree.new$likelihood = getlikelihood(tree.new, R, X, 
-                  WM, Wm, epsilonM, epsilonm)
+                                                    WM, Wm, epsilonM, epsilonm)
                 tree.temp=addsamptree(tree,tree.new)
                 tree=tree.temp[[1]]
                 samptree.accept[sampi]=tree.temp[[2]]
                 if (sampi%%writeskip == 0) {
-                  samptree[[writei]] = tree
-                  writei = writei + 1
+                    samptree[[writei]] = tree
+                    writei = writei + 1
                 }
                 samptree.lik[sampi]=tree$likelihood
                 samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
@@ -139,13 +173,13 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
                 tree.new$P = sampP(tree.new, cell.line)
                 tree.new$VAF = getVAF(tree.new, Y)
                 tree.new$likelihood = getlikelihood(tree.new, R, X, 
-                  WM, Wm, epsilonM, epsilonm)
+                                                    WM, Wm, epsilonM, epsilonm)
                 tree.temp=addsamptree(tree,tree.new)
                 tree=tree.temp[[1]]
                 samptree.accept[sampi]=tree.temp[[2]]
                 if (sampi%%writeskip == 0) {
-                  samptree[[writei]] = tree
-                  writei = writei + 1
+                    samptree[[writei]] = tree
+                    writei = writei + 1
                 }
                 samptree.lik[sampi]=tree$likelihood
                 samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
@@ -161,13 +195,13 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
                 tree.new$Cm = CMCm[[2]]
                 tree.new$VAF = getVAF(tree.new, Y)
                 tree.new$likelihood = getlikelihood(tree.new, R, X, 
-                  WM, Wm, epsilonM, epsilonm)
+                                                    WM, Wm, epsilonM, epsilonm)
                 tree.temp=addsamptree(tree,tree.new)
                 tree=tree.temp[[1]]
                 samptree.accept[sampi]=tree.temp[[2]]
                 if (sampi%%writeskip == 0) {
-                  samptree[[writei]] = tree
-                  writei = writei + 1
+                    samptree[[writei]] = tree
+                    writei = writei + 1
                 }
                 samptree.lik[sampi]=tree$likelihood
                 samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
@@ -177,26 +211,26 @@ canopy.sample = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
                 sampi = sampi + 1
                 ######## sample whether SNA falls in major or minor allele
                 if (any(tree$Q == 1)) {
-                  tree.new = tree
-                  q.temp = which(tree.new$Q == 1)
-                  q.temp.change = q.temp[sample.int(1, n = length(q.temp))]
-                  tree.new$H[q.temp.change] = 1 - tree.new$H[q.temp.change]
-                  tree.new$VAF = getVAF(tree.new, Y)
-                  tree.new$likelihood = getlikelihood(tree.new, R, X, 
-                    WM, Wm, epsilonM, epsilonm)
-                  tree.temp=addsamptree(tree,tree.new)
-                  tree=tree.temp[[1]]
-                  samptree.accept[sampi]=tree.temp[[2]]
-                  if (sampi%%writeskip == 0) {
-                    samptree[[writei]] = tree
-                    writei = writei + 1
-                  }
-                  samptree.lik[sampi]=tree$likelihood
-                  samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-                  if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-                      (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
-                      (samptree.accept.rate[sampi] <= 0.1)) break
-                  sampi = sampi + 1
+                    tree.new = tree
+                    q.temp = which(tree.new$Q == 1)
+                    q.temp.change = q.temp[sample.int(1, n = length(q.temp))]
+                    tree.new$H[q.temp.change] = 1 - tree.new$H[q.temp.change]
+                    tree.new$VAF = getVAF(tree.new, Y)
+                    tree.new$likelihood = getlikelihood(tree.new, R, X, 
+                                                        WM, Wm, epsilonM, epsilonm)
+                    tree.temp=addsamptree(tree,tree.new)
+                    tree=tree.temp[[1]]
+                    samptree.accept[sampi]=tree.temp[[2]]
+                    if (sampi%%writeskip == 0) {
+                        samptree[[writei]] = tree
+                        writei = writei + 1
+                    }
+                    samptree.lik[sampi]=tree$likelihood
+                    samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
+                    if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+                        (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+                        (samptree.accept.rate[sampi] <= 0.1)) break
+                    sampi = sampi + 1
                 }
             }
             sampchaink[[numi]] = samptree[1:(writei - 1)]

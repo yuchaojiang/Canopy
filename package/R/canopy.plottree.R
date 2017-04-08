@@ -25,7 +25,7 @@ canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL, txt = NULL,
         3, 3), heights = c(1.3, 1, 1), respect = TRUE)
     par(mar = c(1, 7, 1, 10))
     # plot tree
-    K = ncol(tree$CM)
+    K = ncol(tree$Z)
     plot(tree, label.offset = 0.1, type = "cladogram", direction = "d", 
         show.tip.label = FALSE)
     nodelabels()
@@ -35,10 +35,14 @@ canopy.plottree = function(tree, pdf = NULL, pdf.name = NULL, txt = NULL,
         snaedge[k] = intersect(which(tree$edge[, 1] == tree$sna[k, 2]), 
             which(tree$edge[, 2] == tree$sna[k, 3]))
     }
-    cnaedge = rep(NA, nrow(tree$cna))
-    for (k in 1:nrow(tree$cna)) {
-        cnaedge[k] = intersect(which(tree$edge[, 1] == tree$cna[k, 2]), 
-            which(tree$edge[, 2] == tree$cna[k, 3]))
+    if(!is.null(tree$cna)){
+        cnaedge = rep(NA, nrow(tree$cna))
+        for (k in 1:nrow(tree$cna)) {
+            cnaedge[k] = intersect(which(tree$edge[, 1] == tree$cna[k, 2]), 
+                                   which(tree$edge[, 2] == tree$cna[k, 3]))
+        }
+    } else{
+        cnaedge=NULL
     }
     edge.label = sort(unique(c(snaedge, cnaedge)))
     edgelabels(paste("mut", 1:length(edge.label), sep = ""), edge.label, 

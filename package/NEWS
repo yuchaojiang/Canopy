@@ -1,5 +1,9 @@
 Package: Canopy
 ===================
+04/03/2016
+Added mutational clustering, enabled automatic check of MCMC sampling
+convergence based on posterior likelihood and acceptance rate.
+
 09/01/2016
 Updated package, enabled tree topology shuffle.
 

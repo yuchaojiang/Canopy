@@ -61,16 +61,21 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
             categ = categ + 1
         }
     }
+    
+    z.temp=(samptreethin.lik-mean(samptreethin.lik))/sd(samptreethin.lik)
+    samptreethin=samptreethin[z.temp<=1.5 & z.temp>=-1.5]
+    samptreethin.lik=samptreethin.lik[z.temp<=1.5 & z.temp>=-1.5]
+    config=config[z.temp<=1.5 & z.temp >= -1.5]
+    
+    
     config.summary = matrix(nrow = length(unique(config)), ncol = 3)
     colnames(config.summary) = c("Configuration", "Post_prob", "Mean_post_lik")
     config.summary[, 1] = unique(config)
     for (i in 1:nrow(config.summary)) {
         configi = config.summary[i, 1]
         configi.temp = which(config == configi)
-        config.summary[i, 2] = round(length(configi.temp)/length(config), 
-            3)
-        config.summary[i, 3] = round(mean(samptreethin.lik[configi]), 
-            2)
+        config.summary[i, 2] = round(length(configi.temp)/length(config), 3)
+        config.summary[i, 3] = round(max(samptreethin.lik[which(config==configi)]), 2)
     }
     
     minor.config = which(config.summary[, 2] < post.config.cutoff)
