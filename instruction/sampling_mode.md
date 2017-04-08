@@ -33,4 +33,4 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
   (3) **canopy.sample.cluster** for cases where SNAs are pre-clustered:
   
   
-  (4) **canopy.sample.cluster** for cases where there is no CNA input and SNAs are pre-clustered:
+  (4) **canopy.sample.cluster.nocna** for cases where there is no CNA input and SNAs are pre-clustered:
