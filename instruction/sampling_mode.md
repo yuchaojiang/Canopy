@@ -1,6 +1,7 @@
 ## **What if I only have SNA input? What are the sampling modes for Canopy?**
   
   There are four modes of MCMC sampling embedded in Canopy.
+  
   (1) **canopy.sample**, which takes both SNA and CNA as input by default:
 ```r
 library(Canopy)
