@@ -1,11 +1,3 @@
-setwd("~/Dropbox/canopy_1.2")
-setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
-
-install.packages('Canopy_1.2.0.tar.gz',repos = NULL, type="source")
-
-
-setwd("~/Dropbox/canopy_1.2")
-setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######################################################
 #######################################################
 #######                                         #######
@@ -13,7 +5,6 @@ setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######                                         #######
 #######################################################
 #######################################################
-setwd("/home/stat/yuchaoj/canopy1.2")
 library(Canopy)
 data("MDA231")
 projectname = MDA231$projectname ## name of project
@@ -35,7 +26,6 @@ Y = MDA231$Y; Y ## whether SNAs are affected by CNAs
 #######                                         #######
 #######################################################
 #######################################################
-
 K = 3:5 # number of subclones
 numchain = 15 # number of chains with random initiations
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
@@ -55,8 +45,6 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 #######                                         #######
 #######################################################
 #######################################################
-setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
-setwd("~/Dropbox/canopy_1.2")
 library(Canopy)
 projectname='MDA231'
 load(paste(projectname, '_postmcmc_image.rda', sep=''))
@@ -75,7 +63,6 @@ optK = K[which.max(bic)]
 #######                                         #######
 #######################################################
 #######################################################
-
 post = canopy.post(sampchain = sampchain, projectname = projectname, K = K,
                    numchain = numchain, burnin = burnin, thin = thin, 
                    optK = optK, C = C, post.config.cutoff = 0.05)
@@ -97,7 +84,6 @@ print(config.summary)
 #######                                         #######
 #######################################################
 #######################################################
-
 # choose the configuration with the highest posterior likelihood
 config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
@@ -108,7 +94,4 @@ canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
 # plot posterior tree with third configuration
 output.tree = canopy.output(post, 3, C)
 canopy.plottree(output.tree, pdf=TRUE, pdf.name = paste(projectname, '_third_config.pdf', sep = ''))
-
-
-
 
