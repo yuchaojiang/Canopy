@@ -1,6 +1,3 @@
-setwd("~/Dropbox/canopy_1.2")
-setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
-
 #######################################################
 #######################################################
 #######                                         #######
@@ -8,7 +5,6 @@ setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######                                         #######
 #######################################################
 #######################################################
-setwd("/home/stat/yuchaoj/canopy1.2")
 library(Canopy)
 data(toy3)
 R=toy3$R; X=toy3$X
@@ -24,7 +20,6 @@ canopy.cluster=canopy.cluster(R = R,
 bic_output=canopy.cluster$bic_output
 plot(num_cluster,bic_output,xlab='Number of mutation clsuters',ylab='BIC',type='b',main='BIC for model selection')
 abline(v=num_cluster[which.max(bic_output)],lty=2)
-
 # Visualization of clustering result
 Mu=canopy.cluster$Mu # VAF centroid for each cluster
 Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
@@ -64,8 +59,6 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 #######                                         #######
 #######################################################
 #######################################################
-#setwd("~/Dropbox/canopy_1.2")
-#setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 library(Canopy)
 projectname='toy3'
 load(paste(projectname, '_postmcmc_image.rda', sep=''))
@@ -84,7 +77,6 @@ optK = K[which.max(bic)]
 #######                                         #######
 #######################################################
 #######################################################
-
 post = canopy.post(sampchain = sampchain, projectname = projectname, K = K,
                    numchain = numchain, burnin = burnin, thin = thin, 
                    optK = optK, C=NULL, post.config.cutoff = 0.05)
@@ -106,7 +98,6 @@ print(config.summary)
 #######                                         #######
 #######################################################
 #######################################################
-
 # choose the configuration with the highest posterior likelihood
 config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
@@ -116,3 +107,4 @@ canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name, txt = TRUE, txt.na
 output.tree$P
 toy3$realP
 output.tree$Z[,c(1,2,4,3)]==toy3$realZ  # note that the clone order can be different.
+
