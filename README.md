@@ -74,3 +74,5 @@ It is HIGHLY recommended that the users read the common questions below carefull
 
 * [Error in config.summary/canopy.post?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/config_summary_error.md)
 
+* [What if I only have SNA input?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/sampling_mode.md)
+
