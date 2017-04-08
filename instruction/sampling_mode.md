@@ -34,3 +34,28 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
   
   
   (4) **canopy.sample.cluster.nocna** for cases where there is no CNA input and SNAs are pre-clustered:
+```r
+library(Canopy)
+data(toy3)
+R=toy3$R; X=toy3$X
+dim(R);dim(X)
+num_cluster=2:9 # Range of number of clusters to run
+num_run=10 # How many EM runs per clustering step for each mutation cluster wave
+canopy.cluster=canopy.cluster(R = R,
+                              X = X,
+                              num_cluster = num_cluster,
+                              num_run = num_run)
+# BIC to determine the optimal number of mutation clusters
+bic_output=canopy.cluster$bic_output
+Mu=canopy.cluster$Mu # VAF centroid for each cluster
+Tau=canopy.cluster$Tau  # Prior for mutation cluster, with a K+1 component
+sna_cluster=canopy.cluster$sna_cluster # cluster identity for each mutation
+projectname='toy3'
+K = 3:5 # number of subclones
+numchain = 15 # number of chains with random initiations
+sampchain = canopy.sample.cluster.nocna(R = R, X = X, sna_cluster = sna_cluster,
+                                        K = K, numchain = numchain, 
+                                        max.simrun = 100000, min.simrun = 20000,
+                                        writeskip = 200, projectname = projectname,
+                                        cell.line = FALSE, plot.likelihood = TRUE)
+```
