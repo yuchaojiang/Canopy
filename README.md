@@ -49,7 +49,7 @@ install_github("yuchaojiang/Canopy/package")
 ## Demo Code & Vignettes
 * [Demo codes](https://github.com/yuchaojiang/Canopy/blob/master/demo_code)
 * [CRAN](https://cran.r-project.org/web/packages/Canopy/index.html)
-* [Vignettes](https://cran.rstudio.com/web/packages/Canopy/vignettes/Canopy_vignettes.pdf)
+* [Vignettes](https://github.com/yuchaojiang/Canopy/blob/master/instruction/Canopy_vignettes.pdf)
 * [SNA clustering](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
 
 ## Citation
