@@ -1,5 +1,3 @@
-setwd("~/Dropbox/canopy_1.2")
-setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######################################################
 #######################################################
 #######                                         #######
@@ -7,7 +5,6 @@ setwd("C:/Users/yuchaoj/Dropbox/canopy_1.2")
 #######                                         #######
 #######################################################
 #######################################################
-setwd("/home/stat/yuchaoj/canopy1.2")
 library(Canopy)
 data(toy)
 projectname = 'toy'
@@ -51,7 +48,6 @@ optK = K[which.max(bic)]
 #######                                         #######
 #######################################################
 #######################################################
-
 post = canopy.post(sampchain = sampchain, projectname = projectname, K = K,
                    numchain = numchain, burnin = burnin, thin = thin, 
                    optK = optK, post.config.cutoff = 0.05)
@@ -73,7 +69,6 @@ print(config.summary)
 #######                                         #######
 #######################################################
 #######################################################
-
 # choose the configuration with the highest posterior likelihood
 config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
@@ -81,3 +76,4 @@ output.tree = canopy.output(post, config.i, C=NULL)
 pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
 canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
 canopy.plottree(output.tree, pdf = FALSE)
+
