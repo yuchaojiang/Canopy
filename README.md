@@ -53,7 +53,7 @@ install_github("yuchaojiang/Canopy/package")
 * [SNA clustering](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
 
 ## Citation
-Jiang, Y., Qiu, Y., Minn, A.J. and Zhang, N.R., 2016. Assessing intratumor heterogeneity and tracking longitudinal and spatial clonal evolutionary history by next-generation sequencing. *Proceedings of the National Academy of Sciences*. [[html](http://www.pnas.org/content/early/2016/08/26/1522203113), [pdf](http://www.pnas.org/content/early/2016/08/26/1522203113.full.pdf)]
+Jiang, Y., Qiu, Y., Minn, A.J. and Zhang, N.R., 2016. Assessing intratumor heterogeneity and tracking longitudinal and spatial clonal evolutionary history by next-generation sequencing. *Proceedings of the National Academy of Sciences*. [[html](http://www.pnas.org/content/113/37/E5528), [pdf](http://www.pnas.org/content/113/37/E5528.full.pdf)]
 
 
 ## Google User Group (Q&A)
