@@ -476,7 +476,7 @@ save.image(file = paste(projectname, '_postmcmc_image.rda',sep=''),
 \section*{4. Citation}
 Assessing intra-tumor heterogeneity and tracking longitudinal and spatial clonal
 evolutionary history by next-generation sequencing,
-Yuchao Jiang, Yu Qiu, Andy J Minn, Nancy R zhang, Proceedings of the National Academy of Sciences, 2016. (\href{http://www.pnas.org/content/early/2016/08/26/1522203113}{html}, \href{http://www.pnas.org/content/early/2016/08/26/1522203113.full.pdf}{pdf})
+Yuchao Jiang, Yu Qiu, Andy J Minn, Nancy R zhang, Proceedings of the National Academy of Sciences, 2016. (\href{http://www.pnas.org/content/113/37/E5528}{html}, \href{http://www.pnas.org/content/113/37/E5528.full.pdf}{pdf})
 
 
 \section*{5. Session information:}
