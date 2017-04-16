@@ -1,6 +1,6 @@
 ## **What if I only have SNA input? What are the sampling modes for Canopy?**
   
-  There are four modes of MCMC sampling embedded in Canopy.
+  There are four modes of MCMC sampling embedded in Canopy. If only SNAs are used as input, **canopy.sample.cluster.nocna** should be used if pre-clustering is adopted on the SNAs (recommended if there is a large number of SNAs and they form clusters by visual inspection, i.e., heatmap of the VAF matrix); **canopy.sample.nocna** should be used if no pre-clustering step is adopted. SNAs with VAFs greater than 50% should be removed (from CNA regions, the data input of which is not provided). Furthermore, from our experience, multiple tree configurations exist if only SNAs are used as input and thus it is recommended to increase the number of chains in the MCMC sampling step so that as much tree space as possible will be sampled.
   
   (1) **canopy.sample**, which takes both SNA and CNA as input by default:
 ```r
