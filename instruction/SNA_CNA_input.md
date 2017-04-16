@@ -29,7 +29,11 @@ To generate allele-specific copy number calls, [Sequenza](https://cran.r-project
 
 Sequenza estimates allele-specific copy numbers as well as tumor purity and ploidy using B-allele frequencies and depth ratios from paired tumor-normal sequencing data. Here are Sequenza outputs from WES of normal, primary tumor and relapse genome of a neuroblastoma patient from [Eleveld et al. (Nature Genetics 2015)](http://www.nature.com/ng/journal/v47/n8/abs/ng.3333.html).
 
+
+Primary tumor Sequenza segmentation genome-wide view
    * [Primary tumor Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.txt)
+
+Relapse genome Sequenza segementation genome-wide view
    * [Relapse genome Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/relapse.txt)
 
 Data visualization and QC procedures on Sequenza's segmentation output are strongly recommended. Below is genome-wide view from Sequenza as a sanity check. The top panel is for the primary tumor and the bottom panel is for the relapse. The red and blue lines are for the major and minor copy numbers, respectively. We see that large chromosome-arm level deletions and duplications are fairly concordant between the primary tumor and the relapse genome (check!), while the relapse tumor gained additional CNAs at the second timepoint. The small CNA events, however, are most likely false positives and should be filtered out through QC procedures, which may include:
