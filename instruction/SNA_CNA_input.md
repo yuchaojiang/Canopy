@@ -18,14 +18,14 @@
  
  * A good way for sanity check is to plot the variant allele frequencies (VAFs) across samples.
    * If there are only two samples, a 2-D scatterplot will suffice. In the figure below, the left panel contains the VAFs at two timepoints for the leukemia patient from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html). We see that there are clear clusters of mutations indicating they fall on the same branch of the tree, which serves as a nice sanity check of our mutation calling and filtering.
-   * If there are more than two samples, heatmap can be used for visualization. The right panel in the figure below is the heatmap of VAFs across 63 somatic mutations in 10 spatially separated tumor slices of a ovarian cancer patient from [Bashashati et al. (The Journal of pathology 2013)](http://onlinelibrary.wiley.com/doi/10.1002/path.4230/abstract).
+   * If there are more than two samples, heatmap can be used for visualization. The right panel in the figure below is the heatmap of VAFs across 63 somatic mutations in 10 spatially separated tumor slices of a ovarian cancer patient from [Bashashati et al. (The Journal of pathology 2013)](http://onlinelibrary.wiley.com/doi/10.1002/path.4230/abstract). The heatmap below is plotted using the [pheatmap R package](https://CRAN.R-project.org/package=pheatmap).
 
 <p align="center">
   <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/demo-page-001.jpg' width='500' height='500' >
 </p>
 
 ## **How do I generate CNA input for Canopy?**
-To generate allele-specific copy number calls, [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) or [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) can be used. Both methods require paired tumor normal samples as input. FALCON-X is available [here](https://CRAN.R-project.org/package=falconx) as a standalone R package via CRAN. Detailed instructions are to be updated soon as a pipeline paper.
+To generate allele-specific copy number calls, [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) or [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) can be used. Both methods require paired tumor normal samples as input. FALCON-X is available [here](https://CRAN.R-project.org/package=falconx) as a standalone R package via CRAN.
 
 Sequenza estimates allele-specific copy numbers as well as tumor purity and ploidy using B-allele frequencies and depth ratios from paired tumor-normal sequencing data. Here are Sequenza outputs from WES of normal, primary tumor and relapse genome of a neuroblastoma patient from [Eleveld et al. (Nature Genetics 2015)](http://www.nature.com/ng/journal/v47/n8/abs/ng.3333.html).
 
