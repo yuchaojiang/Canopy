@@ -27,8 +27,13 @@ canopy.cluster=function(R, X, num_cluster, num_run, Mu.init = NULL,
                     VAF.pheat=pheatmap(VAF,cluster_rows = TRUE,cluster_cols = FALSE,kmeans_k=K,silent=TRUE, clustering_distance_rows = "euclidean")
                     Mu=pmax(VAF.pheat$kmeans$centers,0.001)
                 } else{
-                    VAF.pheat=pheatmap(VAF,cluster_rows = TRUE,cluster_cols = FALSE,kmeans_k=K,silent=TRUE, clustering_distance_rows = "correlation")
-                    Mu=pmax(VAF.pheat$kmeans$centers,0.001)
+                    if(ncol(R)>1){
+                        VAF.pheat=pheatmap(VAF,cluster_rows = TRUE,cluster_cols = FALSE,kmeans_k=K,silent=TRUE, clustering_distance_rows = "correlation")
+                        Mu=pmax(VAF.pheat$kmeans$centers,0.001) 
+                    } else{
+                        VAF.pheat=pheatmap(VAF,cluster_rows = TRUE,cluster_cols = FALSE,kmeans_k=K,silent=TRUE, clustering_distance_rows = "euclidean")
+                        Mu=pmax(VAF.pheat$kmeans$centers,0.001)
+                    }
                 }
             }
             diff=1
