@@ -38,7 +38,7 @@ sampchain = canopy.sample.cluster.nocna(R = R, X = X,
   
   (3) **canopy.sample.cluster** for cases where SNAs are pre-clustered:
 ```r
-sampchain = canopy.sample(R = R, X = X, sna_cluster = sna_cluster, 
+sampchain = canopy.sample.cluster(R = R, X = X, sna_cluster = sna_cluster, 
                           WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = C, Y = Y, K = K, 
                           numchain = numchain, max.simrun = 100000,
