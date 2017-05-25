@@ -103,7 +103,8 @@ config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
 output.tree = canopy.output(post, config.i, C=NULL)
 pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
-canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name, txt = TRUE, txt.name = 'toy3_mut.txt')
+canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name, txt = TRUE,
+                txt.name = paste(projectname,'_mut.txt', sep = ''))
 output.tree$P
 toy3$realP
 output.tree$Z[,c(1,2,4,3)]==toy3$realZ  # note that the clone order can be different.
