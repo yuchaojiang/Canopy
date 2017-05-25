@@ -1,8 +1,9 @@
-canopy.post = function(sampchain, projectname, K, numchain, burnin, 
-    thin, optK, C = NULL, post.config.cutoff = NULL) {
+canopy.post = function (sampchain, projectname, K, numchain, burnin, thin, 
+          optK, C = NULL, post.config.cutoff = NULL) 
+{
     if (is.null(C)) {
-      C = diag(nrow(sampchain[[1]][[1]][[1]]$cna))
-      colnames(C) = rownames(C) = rownames(sampchain[[1]][[1]][[1]]$cna)
+        C = diag(nrow(sampchain[[1]][[1]][[1]]$cna))
+        colnames(C) = rownames(C) = rownames(sampchain[[1]][[1]][[1]]$cna)
     }
     if (is.null(post.config.cutoff)) {
         post.config.cutoff = 0.05
@@ -12,10 +13,8 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
     }
     sampchaink = sampchain[[which(K == optK)]]
     numchain = length(sampchaink)
-    # burn-in
     samptreenew = sampchaink[[1]][(burnin + 1):length(sampchaink[[1]])]
     numpostburn = length(samptreenew)
-    # thinning
     temp <- thin * c(1:(numpostburn/thin))
     samptreethin = samptreenew[temp]
     length(samptreethin)
@@ -29,17 +28,17 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
     for (treei in 1:length(samptreethin)) {
         samptreethin.lik[treei] = samptreethin[[treei]]$likelihood
     }
-    samptreethin = samptreethin[which((rank(-1 * samptreethin.lik, ties.method = "first")) <= 
-        5*(length(samptreethin)/numchain))]
+    samptreethin = samptreethin[which((rank(-1 * samptreethin.lik, 
+                                            ties.method = "first")) <= 5 * (length(samptreethin)/numchain))]
     samptreethin.lik = rep(NA, length(samptreethin))
     for (treei in 1:length(samptreethin)) {
         samptreethin.lik[treei] = samptreethin[[treei]]$likelihood
     }
-    
-    for (i in 1:length(samptreethin)) {
-        samptreethin[[i]] = sortcna(samptreethin[[i]], C)
+    if(!is.null(sampchain[[1]][[1]][[1]]$cna)){
+        for (i in 1:length(samptreethin)) {
+            samptreethin[[i]] = sortcna(samptreethin[[i]], C)
+        }
     }
-    
     for (i in 1:length(samptreethin)) {
         samptreethin[[i]]$clonalmut = getclonalcomposition(samptreethin[[i]])
     }
@@ -48,11 +47,10 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
     categ = 1
     for (i in 2:length(samptreethin)) {
         for (categi in 1:categ) {
-            list.a=samptreethin[[i]]$clonalmut
-            list.b=samptreethin[[which(config == categi)[1]]]$clonalmut
-            
-            if ((sum(is.element(list.a,list.b)) == optK) &
-                (sum(is.element(list.b,list.a)) == optK)) {
+            list.a = samptreethin[[i]]$clonalmut
+            list.b = samptreethin[[which(config == categi)[1]]]$clonalmut
+            if ((sum(is.element(list.a, list.b)) == optK) & (sum(is.element(list.b, 
+                                                                            list.a)) == optK)) {
                 config[i] = categi
             }
         }
@@ -61,23 +59,23 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
             categ = categ + 1
         }
     }
-    
-    z.temp=(samptreethin.lik-mean(samptreethin.lik))/sd(samptreethin.lik)
-    samptreethin=samptreethin[z.temp<=1.5 & z.temp>=-1.5]
-    samptreethin.lik=samptreethin.lik[z.temp<=1.5 & z.temp>=-1.5]
-    config=config[z.temp<=1.5 & z.temp >= -1.5]
-    
-    
+    z.temp = (samptreethin.lik - mean(samptreethin.lik))/sd(samptreethin.lik)
+    samptreethin = samptreethin[z.temp <= 1.5 & z.temp >= -1.5]
+    samptreethin.lik = samptreethin.lik[z.temp <= 1.5 & z.temp >= 
+                                            -1.5]
+    config = config[z.temp <= 1.5 & z.temp >= -1.5]
     config.summary = matrix(nrow = length(unique(config)), ncol = 3)
-    colnames(config.summary) = c("Configuration", "Post_prob", "Mean_post_lik")
+    colnames(config.summary) = c("Configuration", "Post_prob", 
+                                 "Mean_post_lik")
     config.summary[, 1] = unique(config)
     for (i in 1:nrow(config.summary)) {
         configi = config.summary[i, 1]
         configi.temp = which(config == configi)
-        config.summary[i, 2] = round(length(configi.temp)/length(config), 3)
-        config.summary[i, 3] = round(max(samptreethin.lik[which(config==configi)]), 2)
+        config.summary[i, 2] = round(length(configi.temp)/length(config), 
+                                     3)
+        config.summary[i, 3] = round(max(samptreethin.lik[which(config == 
+                                                                    configi)]), 2)
     }
-    
     minor.config = which(config.summary[, 2] < post.config.cutoff)
     if (length(minor.config) > 0) {
         config.sel = rep(TRUE, length(config))
@@ -88,12 +86,13 @@ canopy.post = function(sampchain, projectname, K, numchain, burnin,
         samptreethin.lik = samptreethin.lik[config.sel]
         config = config[config.sel]
         config.summary = config.summary[-minor.config, ]
+        if(length(config.summary)==3){config.summary=t(as.matrix(config.summary))}
         for (i in 1:nrow(config.summary)) {
             config[which(config == config.summary[i, 1])] = i
         }
         config.summary[, 1] = 1:nrow(config.summary)
         config.summary[, 2] = round(config.summary[, 2]/sum(config.summary[, 
-            2]), 3)
+                                                                           2]), 3)
     }
     return(list(samptreethin, samptreethin.lik, config, config.summary))
-} 
+}
