@@ -16,8 +16,8 @@ canopy.sample.cluster = function(R, X, sna_cluster, WM, Wm, epsilonM, epsilonm, 
     if (!is.matrix(Wm)) {
         stop("Wm should be a matrix!")
     }
-    if (min(K) < 3) {
-        stop("Smallest number of subclones should be >= 3!\n")
+    if (min(K) < 2) {
+        stop("Smallest number of subclones should be >= 2!\n")
     }
     if (is.null(cell.line)) {
         cell.line = FALSE

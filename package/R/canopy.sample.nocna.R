@@ -8,8 +8,8 @@ canopy.sample.nocna = function(R, X, K, numchain,
     if (!is.matrix(X)) {
         stop("X should be a matrix!")
     }
-    if (min(K) < 3) {
-        stop("Smallest number of subclones should be >= 3!\n")
+    if (min(K) < 2) {
+        stop("Smallest number of subclones should be >= 2!\n")
     }
     if (is.null(cell.line)) {
         cell.line = FALSE
