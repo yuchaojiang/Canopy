@@ -29,7 +29,7 @@ sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM,
   
   (2) **canopy.sample.nocna** for cases where there is no CNA input:
 ```r
-sampchain = canopy.sample.cluster.nocna(R = R, X = X,
+sampchain = canopy.sample.nocna(R = R, X = X,
                                         K = K, numchain = numchain, 
                                         max.simrun = 100000, min.simrun = 20000,
                                         writeskip = 200, projectname = projectname,
