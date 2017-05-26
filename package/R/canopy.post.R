@@ -49,8 +49,8 @@ canopy.post = function (sampchain, projectname, K, numchain, burnin, thin,
         for (categi in 1:categ) {
             list.a = samptreethin[[i]]$clonalmut
             list.b = samptreethin[[which(config == categi)[1]]]$clonalmut
-            if ((sum(is.element(list.a, list.b)) == optK) & (sum(is.element(list.b, 
-                                                                            list.a)) == optK)) {
+            if ((sum(is.element(list.a, list.b)) == optK) & 
+                (sum(is.element(list.b, list.a)) == optK)) {
                 config[i] = categi
             }
         }
@@ -61,8 +61,7 @@ canopy.post = function (sampchain, projectname, K, numchain, burnin, thin,
     }
     z.temp = (samptreethin.lik - mean(samptreethin.lik))/sd(samptreethin.lik)
     samptreethin = samptreethin[z.temp <= 1.5 & z.temp >= -1.5]
-    samptreethin.lik = samptreethin.lik[z.temp <= 1.5 & z.temp >= 
-                                            -1.5]
+    samptreethin.lik = samptreethin.lik[z.temp <= 1.5 & z.temp >= -1.5]
     config = config[z.temp <= 1.5 & z.temp >= -1.5]
     config.summary = matrix(nrow = length(unique(config)), ncol = 3)
     colnames(config.summary) = c("Configuration", "Post_prob", 
@@ -80,7 +79,7 @@ canopy.post = function (sampchain, projectname, K, numchain, burnin, thin,
     if (length(minor.config) > 0) {
         config.sel = rep(TRUE, length(config))
         for (i in minor.config) {
-            config.sel[which(config == i)] = FALSE
+            config.sel[which(config == config.summary[i,1])] = FALSE
         }
         samptreethin = samptreethin[config.sel]
         samptreethin.lik = samptreethin.lik[config.sel]
