@@ -84,8 +84,7 @@ canopy.post = function (sampchain, projectname, K, numchain, burnin, thin,
         samptreethin = samptreethin[config.sel]
         samptreethin.lik = samptreethin.lik[config.sel]
         config = config[config.sel]
-        config.summary = config.summary[-minor.config, ]
-        if(length(config.summary)==3){config.summary=t(as.matrix(config.summary))}
+        config.summary = config.summary[-minor.config, , drop = FALSE]
         for (i in 1:nrow(config.summary)) {
             config[which(config == config.summary[i, 1])] = i
         }
