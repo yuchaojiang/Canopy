@@ -76,3 +76,5 @@ It is HIGHLY recommended that the users read the common questions below carefull
 
 * [What if I only have SNA input?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/sampling_mode.md)
 
+* [How do I get cancer cell fractions (CCFs) for the SNAs?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/CCF.md)
+
