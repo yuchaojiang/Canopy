@@ -4,6 +4,9 @@
 
 ```r
 library(Canopy)
+################################################################################
+##    Below is running Canopy on the MDA231 toy dataset
+################################################################################
 data("MDA231")
 projectname = MDA231$projectname ## name of project
 R = MDA231$R; R ## mutant allele read depth (for SNAs)
@@ -35,7 +38,9 @@ config = post[[3]]
 config.summary = post[[4]]
 print(config.summary)
 
-# choose the configuration with the highest posterior likelihood
+################################################################################
+##    Below is choosing the maximum likelihood tree and compute its CCF matrix
+################################################################################
 config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
 output.tree = canopy.output(post, config.i, C)
