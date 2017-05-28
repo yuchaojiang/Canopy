@@ -89,8 +89,15 @@ canopy.post = function (sampchain, projectname, K, numchain, burnin, thin,
             config[which(config == config.summary[i, 1])] = i
         }
         config.summary[, 1] = 1:nrow(config.summary)
-        config.summary[, 2] = round(config.summary[, 2]/sum(config.summary[, 
-                                                                           2]), 3)
+        config.summary[, 2] = round(config.summary[, 2]/sum(config.summary[, 2]), 3)
+    }
+    # below is added to computed CCFs for point mutations / SNAs
+    for(treei in 1:length(samptreethin)){
+        output.tree=samptreethin[[treei]]
+        output.tree.Z=output.tree$Z[,2:ncol(output.tree$Z)]
+        output.tree.P=apply(output.tree$P[2:nrow(output.tree$P),],2,function(x){x/sum(x)})
+        output.tree$CCF= output.tree.Z %*% output.tree.P 
+        samptreethin[[treei]]=output.tree
     }
     return(list(samptreethin, samptreethin.lik, config, config.summary))
 }
