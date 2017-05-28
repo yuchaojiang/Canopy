@@ -1,6 +1,6 @@
 ## **How do I get cancer cell fractions (CCFs) for the SNAs?**
   
-  Cancer cell fractions (CCFs) refer to the fractions of cancer cells (not including the normal cell contamination) that harbor specific mutations. To get the CCF for a specific posterior tree, for example, the maximum likelihood tree,
+  Cancer cell fractions (CCFs) refer to the fractions of cancer cells (not including the normal cell contamination) that harbor specific mutations. To get the CCF for a specific posterior tree, for example, the maximum likelihood tree, use the code below.
 
 ```r
 library(Canopy)
@@ -40,4 +40,18 @@ config.i = config.summary[which.max(config.summary[,3]),1]
 cat('Configuration', config.i, 'has the highest posterior likelihood.\n')
 output.tree = canopy.output(post, config.i, C)
 output.tree$CCF
-  ```
+```
+
+  To get CCFs for posterior trees with the same configurations, use the code below (the above needs to be run first).
+ ```r
+ length(samptreethin) # posterior trees
+length(config) # configuration for posteior trees
+samptreethin.config1=samptreethin[which(config==1)] # posterior trees with configuration 1
+table(config)
+length(samptreethin.config1)
+samptreethin.config1[[1]]$CCF
+samptreethin.config1[[2]]$CCF
+samptreethin.config1[[77]]$CCF
+# mean and s.d. can be computed across all 77 trees with configuration 1
+ ```
+
