@@ -27,6 +27,10 @@
 ## **How do I generate CNA input for Canopy?**
 To generate allele-specific copy number calls, [Sequenza](https://cran.r-project.org/web/packages/sequenza/index.html) or [FALCON-X](https://cran.fhcrc.org/web/packages/falconx/index.html) can be used. Both methods require paired tumor normal samples as input. FALCON-X is available [here](https://CRAN.R-project.org/package=falconx) as a standalone R package via CRAN.
 
+
+### FALCON-X (recommended)
+
+### Sequenza
 Sequenza estimates allele-specific copy numbers as well as tumor purity and ploidy using B-allele frequencies and depth ratios from paired tumor-normal sequencing data. Here are Sequenza outputs from WES of normal, primary tumor and relapse genome of a neuroblastoma patient from [Eleveld et al. (Nature Genetics 2015)](http://www.nature.com/ng/journal/v47/n8/abs/ng.3333.html).
 
    * [Primary tumor Sequenza segment output](https://github.com/yuchaojiang/Canopy/blob/master/instruction/primary.txt)
