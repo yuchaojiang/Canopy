@@ -8,10 +8,14 @@ To generate allele-specific copy number calls, [Sequenza](https://CRAN.R-project
 
 Above is demo code for applying Falcon to paired normal, relapse genome of a neuroblatoma patient from [Eleveld et al. (Nature Genetics 2015)](http://www.nature.com/ng/journal/v47/n8/abs/ng.3333.html), provided by Drs. Derek Oldridge, Sharon Diskin, and John Maris. FALCON processes each chromosome separately and here we only include script and data input for chr14, where a copy-neutral loss of heterozygousity (LOH) event has been previous reported in the relapse. After QC procedure for data input and curation of segmentation output, the final plot as well as table output is below.
 
+<p align="center">
+Falcon plot output chr14 of neuroblatoma relapse genome
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.relapse.qc.jpg' >
+</p>
 
 <p align="center">
-Falcon output chr14 of neuroblatoma relapse genome
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.relapse.qc.jpg' >
+Falcon table output chr14 of neuroblatoma relapse genome
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon_table_output.jpg' >
 </p>
 
 
