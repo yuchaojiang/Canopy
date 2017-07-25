@@ -15,7 +15,7 @@ Falcon plot output chr14 of neuroblatoma relapse genome
 
 <p align="center">
 Falcon table output chr14 of neuroblatoma relapse genome
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon_table_output.jpg' width='600' height='200'>
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon_table_output.jpg' width='600' height='80'>
 </p>
 
 
