@@ -1,4 +1,3 @@
-setwd("~/Dropbox/bioinfo_pipeline/pipeline_neuroblastoma_primary_relapse/falcon_demo")
 
 library(falcon)
 
@@ -129,5 +128,3 @@ falcon.output=falcon.output(readMatrix = readMatrix.relapse,
 chr=14
 falcon.output = cbind(rep(chr,nrow(falcon.output)), falcon.output)
 write.table(falcon.output, file='faclon.output.txt', col.names =T, row.names = F, sep='\t', quote = F)
-
-
