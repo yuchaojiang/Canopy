@@ -16,6 +16,7 @@ library(falcon)
 load('relapse.chr.rda')
 head(relapse.chr)
 
+
 ###########################################
 # Focus on germline heterozygous variants.
 ###########################################
@@ -71,12 +72,12 @@ tauhat.relapse=getChangepoints(readMatrix.relapse)
 cn.relapse = getASCN(readMatrix.relapse, tauhat=tauhat.relapse)
 
 # Chromosomal view of segmentation results.
-pdf(file='falcon.relapse.pdf',width=5,height=8)
+pdf(file=paste('falcon.relapse.',chr,'.pdf',sep=''),width=5,height=8)
 view(cn.relapse)
 dev.off()
 
 # save image file.
-save.image(file=paste('falcon_relapse.rda',sep=''))
+save.image(file=paste('falcon_relapse_',chr,'.rda',sep=''))
 
 
 ########################################
@@ -86,24 +87,25 @@ save.image(file=paste('falcon_relapse.rda',sep=''))
 # From the pdf above, we see that:
 # (1) There are small segments that need to be removed;
 # (2) Consecutive segments with similar allelic cooy number states need to be combined.
-
-length.thres=10^6  # Threshold for length of segments, in base pair.
-delta.cn.thres=0.3  # Threshold of absolute copy number difference between consecutive segments.
-source('falcon.qc.R') # Can be downloaded from
-# https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.qc.R
-falcon.qc.list = falcon.qc(readMatrix = readMatrix.relapse,
-                           tauhat = tauhat.relapse,
-                           cn = cn.relapse,
-                           st_bp = relapse.chr[,"Start_position"],
-                           end_bp = relapse.chr[,"End_position"],
-                           length.thres = length.thres,
-                           delta.cn.thres = delta.cn.thres)
-
-tauhat.relapse=falcon.qc.list$tauhat
-cn.relapse=falcon.qc.list$cn
+if(length(tauhat.relapse)>0){
+  length.thres=10^6  # Threshold for length of segments, in base pair.
+  delta.cn.thres=0.3  # Threshold of absolute copy number difference between consecutive segments.
+  source('falcon_demo/falcon.qc.R') # Can be downloaded from
+  # https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.qc.R
+  falcon.qc.list = falcon.qc(readMatrix = readMatrix.relapse,
+                             tauhat = tauhat.relapse,
+                             cn = cn.relapse,
+                             st_bp = relapse.chr[,"Start_position"],
+                             end_bp = relapse.chr[,"End_position"],
+                             length.thres = length.thres,
+                             delta.cn.thres = delta.cn.thres)
+  
+  tauhat.relapse=falcon.qc.list$tauhat
+  cn.relapse=falcon.qc.list$cn
+}
 
 # Chromosomal view of QC'ed segmentation results.
-pdf(file='falcon.relapse.qc.pdf',width=5,height=8)
+pdf(file=paste('falcon.relapse.qc.',chr,'.pdf',sep=''),width=5,height=8)
 view(cn.relapse)
 dev.off()
 
@@ -117,14 +119,13 @@ dev.off()
 # For Canopy's input, we use Bootstrap-based method to estimate the
 # standard deviations for the allele-specific copy numbers.
 
-source('falcon.output.R') # Can be downloaded from
+source('falcon_demo/falcon.output.R') # Can be downloaded from
 # https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.output.R
 falcon.output=falcon.output(readMatrix = readMatrix.relapse,
                             tauhat = tauhat.relapse,
                             cn = cn.relapse,
                             st_bp = relapse.chr[,"Start_position"],
                             end_bp = relapse.chr[,"End_position"],
-                            nboot = 10000)
-chr=14
-falcon.output = cbind(chr = rep(chr,nrow(falcon.output)), falcon.output)
-write.table(falcon.output, file='faclon.output.txt', col.names =T, row.names = F, sep='\t', quote = F)
+                            nboot = 5000)
+falcon.output = cbind(chr=rep(chr,nrow(falcon.output)), falcon.output)
+write.table(falcon.output, file=paste('faclon.relapse.output.',chr,'.txt',sep=''), col.names =T, row.names = F, sep='\t', quote = F)
