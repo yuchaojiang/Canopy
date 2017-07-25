@@ -126,5 +126,5 @@ falcon.output=falcon.output(readMatrix = readMatrix.relapse,
                             end_bp = relapse.chr[,"End_position"],
                             nboot = 10000)
 chr=14
-falcon.output = cbind(rep(chr,nrow(falcon.output)), falcon.output)
+falcon.output = cbind(chr = rep(chr,nrow(falcon.output)), falcon.output)
 write.table(falcon.output, file='faclon.output.txt', col.names =T, row.names = F, sep='\t', quote = F)
