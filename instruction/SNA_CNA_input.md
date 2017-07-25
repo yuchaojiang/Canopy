@@ -1,29 +1,3 @@
-## **How do I generate SNA input for Canopy?**
-
- * We use UnifiedGenotyper by **[GATK](https://software.broadinstitute.org/gatk/)** to call somatic SNAs and follow its [Best Practices](https://software.broadinstitute.org/gatk/best-practices/). A demo code can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/UnifiedGenotyper.sh). **[MuTect](http://archive.broadinstitute.org/cancer/cga/mutect)** and **[VarScan2](http://massgenomics.org/varscan)** can also be used when paired normal samples are available.
-
- * *Stringent* QC procedures are strongly recommended. Just to list a few QCs that we have adopted:
-    * Pass variant recalibration (VQSR) from GATK;
-    * Have only one alternative allele (one locus being double hit by two different SNAs in one patient is very unlikely);
-    * Are highly deleterious (i.e., focuse on driver mutations) from functional annotations (**[ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)**);
-    * Have low population variant frequency from the 1000 Genomes Project (if no normal samples are available);
-    * Don't reside in segmental duplication regions;
-    * Have high depth of coverage (total as well as mutated read depth);
-    * Reside in target baits (e.g., exonic regions for exome sequencing);
-    * ...
-    * ...
-      
-
- * After mutation calling and QC procedures, the number of mutated reads will be stored in matrix R while the total number of reads will be stored in matrix X across all mutational loci in all samples. An example data input of a leukemia patient AML43 from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html) can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/AML43_DingEtAl.txt). Note: This study focused on SNAs in copy-neutral regions of the genome.
- 
- * A good way for sanity check is to plot the variant allele frequencies (VAFs) across samples.
-   * If there are only two samples, a 2-D scatterplot will suffice. In the figure below, the left panel contains the VAFs at two timepoints for the leukemia patient from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html). We see that there are clear clusters of mutations indicating they fall on the same branch of the tree, which serves as a nice sanity check of our mutation calling and filtering.
-   * If there are more than two samples, heatmap can be used for visualization. The right panel in the figure below is the heatmap of VAFs across 63 somatic mutations in 10 spatially separated tumor slices of a ovarian cancer patient from [Bashashati et al. (The Journal of pathology 2013)](http://onlinelibrary.wiley.com/doi/10.1002/path.4230/abstract). The heatmap below is plotted using the [pheatmap R package](https://CRAN.R-project.org/package=pheatmap).
-
-<p align="center">
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/demo-page-001.jpg' width='500' height='500' >
-</p>
-
 ## **How do I generate CNA input for Canopy?**
 To generate allele-specific copy number calls, [Sequenza](https://CRAN.R-project.org/package=sequenza) or [FALCON](https://CRAN.R-project.org/package=falcon) can be used. Both methods require paired tumor normal samples as input. FALCON is available [here](https://CRAN.R-project.org/package=falcon) as a standalone R package via CRAN.
 
@@ -37,7 +11,7 @@ Above is demo code for applying Falcon to paired normal, relapse genome of a neu
 
 <p align="center">
 Falcon output chr14 of neuroblatoma relapse genome
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.relapse.qc-page-001.jpg' >
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.relapse.qc.jpg' >
 </p>
 
 
@@ -66,4 +40,31 @@ Relapse genome Sequenza segementation genome-wide view
 </p>
 
 Canopy does not require interger allele-specific copy number as input. While Sequenza infers tumor purity and ploidy and outputs interger-valued allle-specifc copy numbers, Canopy directly takes as input the fractional allele-specific copy numbers, which can be obtained from the segmentation output (see above). The B-allele frequency is Bf = Wm / (WM + Wm) and the depth ratio is depth.ratio = (WM + Wm)/2. From here the input matrix WM and Wm can be calculated. The standard errors of the estimated copy numbers, epsilonM and epsilonm, can be set as the default value by Canopy or be taken as the sd.ratio from Sequenza's output, assuming they are the same. NOTE: epsilonM and epsilonm should NOT be sd(WM) and sd(Wm). The former are both matrix of dimension number of CNA events x number of samples, unless if they are set all the same by default as a scalar; the latter are the standard deviations of the copy numbers across all events in all samples.
-    
+
+
+## **How do I generate SNA input for Canopy?**
+
+ * We use UnifiedGenotyper by **[GATK](https://software.broadinstitute.org/gatk/)** to call somatic SNAs and follow its [Best Practices](https://software.broadinstitute.org/gatk/best-practices/). A demo code can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/UnifiedGenotyper.sh). **[MuTect](http://archive.broadinstitute.org/cancer/cga/mutect)** and **[VarScan2](http://massgenomics.org/varscan)** can also be used when paired normal samples are available.
+
+ * *Stringent* QC procedures are strongly recommended. Just to list a few QCs that we have adopted:
+    * Pass variant recalibration (VQSR) from GATK;
+    * Have only one alternative allele (one locus being double hit by two different SNAs in one patient is very unlikely);
+    * Are highly deleterious (i.e., focuse on driver mutations) from functional annotations (**[ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)**);
+    * Have low population variant frequency from the 1000 Genomes Project (if no normal samples are available);
+    * Don't reside in segmental duplication regions;
+    * Have high depth of coverage (total as well as mutated read depth);
+    * Reside in target baits (e.g., exonic regions for exome sequencing);
+    * ...
+    * ...
+      
+
+ * After mutation calling and QC procedures, the number of mutated reads will be stored in matrix R while the total number of reads will be stored in matrix X across all mutational loci in all samples. An example data input of a leukemia patient AML43 from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html) can be found [here](https://github.com/yuchaojiang/Canopy/blob/master/instruction/AML43_DingEtAl.txt). Note: This study focused on SNAs in copy-neutral regions of the genome.
+ 
+ * A good way for sanity check is to plot the variant allele frequencies (VAFs) across samples.
+   * If there are only two samples, a 2-D scatterplot will suffice. In the figure below, the left panel contains the VAFs at two timepoints for the leukemia patient from [Ding et al. (Nature 2012)](http://www.nature.com/nature/journal/v481/n7382/full/nature10738.html). We see that there are clear clusters of mutations indicating they fall on the same branch of the tree, which serves as a nice sanity check of our mutation calling and filtering.
+   * If there are more than two samples, heatmap can be used for visualization. The right panel in the figure below is the heatmap of VAFs across 63 somatic mutations in 10 spatially separated tumor slices of a ovarian cancer patient from [Bashashati et al. (The Journal of pathology 2013)](http://onlinelibrary.wiley.com/doi/10.1002/path.4230/abstract). The heatmap below is plotted using the [pheatmap R package](https://CRAN.R-project.org/package=pheatmap).
+
+<p align="center">
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/demo-page-001.jpg' width='500' height='500' >
+</p>
+
