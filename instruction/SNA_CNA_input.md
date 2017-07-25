@@ -10,7 +10,7 @@ Above is demo code for applying Falcon to paired normal, relapse genome of a neu
 
 <p align="center">
 Falcon plot output chr14 of neuroblatoma relapse genome
-  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.relapse.qc.jpg' >
+  <img src='https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.relapse.qc.jpg' width='400' height='600'>
 </p>
 
 <p align="center">
