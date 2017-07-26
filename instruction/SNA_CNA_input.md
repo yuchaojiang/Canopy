@@ -1,5 +1,5 @@
 ## **How do I generate CNA input for Canopy?**
-To generate allele-specific copy number calls, [Sequenza](https://CRAN.R-project.org/package=sequenza) or [FALCON](https://CRAN.R-project.org/package=falcon) can be used. Both methods require paired tumor normal samples as input. FALCON is available [here](https://CRAN.R-project.org/package=falcon) as a standalone R package via CRAN.
+To generate allele-specific copy number calls, [Sequenza](https://CRAN.R-project.org/package=sequenza) or [FALCON](https://CRAN.R-project.org/package=falcon) can be used. Both methods require paired tumor normal samples as input.
 
 
 ### FALCON (recommended)
