@@ -1,10 +1,13 @@
-falcon.qc = function(readMatrix, tauhat, cn, st_bp, end_bp, length.thres = NULL, delta.cn.thres = NULL){
+falcon.qc = function(readMatrix, tauhat, cn, st_bp, end_bp, rdep=NULL, length.thres = NULL, delta.cn.thres = NULL){
   if(is.null(length.thres)){
     length.thres=10^6
   }
   if(is.null(delta.cn.thres)){
     delta.cn.thres=0.3
   }
+  if (is.null(rdep)) {rdep = median(readMatrix[,'AT'] + readMatrix[,'BT'])/median(
+    readMatrix[,'AN'] + readMatrix[,'BN'])}
+    
   tauhat.filter=rep(T,length(tauhat))
   for(i.change in 1:length(tauhat)){
     temp=max(abs(cn$ascn[,i.change+1]-cn$ascn[,i.change]))
@@ -13,7 +16,7 @@ falcon.qc = function(readMatrix, tauhat, cn, st_bp, end_bp, length.thres = NULL,
     }
   }
   tauhat=tauhat[tauhat.filter]
-  cn = getASCN(readMatrix, tauhat=tauhat)
+  cn = getASCN(readMatrix, tauhat=tauhat, rdep=rdep)
   
   st_snp=c(1,tauhat)
   end_snp=c(tauhat,nrow(readMatrix))
@@ -23,7 +26,7 @@ falcon.qc = function(readMatrix, tauhat, cn, st_bp, end_bp, length.thres = NULL,
   output.filter=(output[,"end_bp"]-output[,"st_bp"]+1)>=(length.thres)  # 1 Mb long at least
   output=output[output.filter,,drop=FALSE]
   tauhat=setdiff(unique(output[,"st_snp"],output[,"end_snp"]),c(1,nrow(readMatrix)))
-  cn = getASCN(readMatrix, tauhat=tauhat)
+  cn = getASCN(readMatrix, tauhat=tauhat, rdep=rdep)
   if(nrow(output)>1){
     tauhat.filter=rep(T,length(tauhat))
     for(i.change in 1:length(tauhat)){
@@ -33,7 +36,7 @@ falcon.qc = function(readMatrix, tauhat, cn, st_bp, end_bp, length.thres = NULL,
       }
     }
     tauhat=tauhat[tauhat.filter]
-    cn = getASCN(readMatrix, tauhat=tauhat) 
+    cn = getASCN(readMatrix, tauhat=tauhat, rdep = rdep) 
   }
   return(list(tauhat=tauhat, cn=cn))
 }
