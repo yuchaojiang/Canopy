@@ -276,3 +276,56 @@ for(chr in c(4,7,11,14,17,20)){
   falcon.output = cbind(chr=rep(chr,nrow(falcon.output)), falcon.output)
   write.table(falcon.output, file=paste('faclon.primary.output.',chr,'.txt',sep=''), col.names =T, row.names = F, sep='\t', quote = F)  
 }
+
+
+
+
+# Above we automated the QC procedure after FALCON's initial call.
+# However, sometimes further manual correction / curation is needed.
+# Visual eyecheck is thus strongly recommended.
+# Below is a manual correction for chr7.
+
+chr=7
+load("falcon_primary_7.rda")
+
+tauhat.primary
+
+if(length(tauhat.primary)>0){
+  length.thres=10^6  # Threshold for length of segments, in base pair.
+  delta.cn.thres=0.3  # Threshold of absolute copy number difference between consecutive segments.
+  source('falcon_demo/falcon.qc.R') # Can be downloaded from
+  # https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.qc.R
+  falcon.qc.list = falcon.qc(readMatrix = readMatrix.primary,
+                             tauhat = tauhat.primary,
+                             cn = cn.primary,
+                             st_bp = primary.chr[,"Start_position"],
+                             end_bp = primary.chr[,"End_position"],
+                             rdep = rdep.primary,
+                             length.thres = length.thres,
+                             delta.cn.thres = delta.cn.thres)
+  
+  tauhat.primary=falcon.qc.list$tauhat
+  cn.primary=falcon.qc.list$cn
+}
+
+tauhat.primary
+tauhat.primary=c(tauhat.primary,37821)
+cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary)
+
+
+# Chromosomal view of QC'ed segmentation results.
+pdf(file=paste('falcon.primary.qc.',chr,'.pdf',sep=''),width=5,height=8)
+view(cn.primary,pos=primary.chr[,'Start_position'])
+dev.off()
+
+source('falcon_demo/falcon.output.R') # Can be downloaded from
+# https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon.output.R
+falcon.output=falcon.output(readMatrix = readMatrix.primary,
+                            tauhat = tauhat.primary,
+                            cn = cn.primary,
+                            st_bp = primary.chr[,"Start_position"],
+                            end_bp = primary.chr[,"End_position"],
+                            nboot = 5000)
+falcon.output = cbind(chr=rep(chr,nrow(falcon.output)), falcon.output)
+write.table(falcon.output, file=paste('faclon.primary.output.',chr,'.txt',sep=''), col.names =T, row.names = F, sep='\t', quote = F)
+
