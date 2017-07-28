@@ -12,7 +12,7 @@ falcon.output = function(readMatrix, tauhat, cn, st_bp, end_bp, nboot=NULL){
   output=cbind(output,Minor.sd,Major.sd)
   for(t in 1:nrow(output)){
     if(length(cn$Haplotype)==0) break
-    if(t >= length(cn$Haplotype)) break
+    if(t > length(cn$Haplotype)) break
     if(length(cn$Haplotype[[t]])==0) next
     cat('Running bootstrap for segment',t, '...\n')
     temp=readMatrix[output[t,1]:output[t,2],]
