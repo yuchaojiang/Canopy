@@ -93,7 +93,7 @@ for(chr in c(4,7,11,14,17,20)){
   
   # Chromosomal view of segmentation results.
   pdf(file=paste('falcon.relapse.',chr,'.pdf',sep=''),width=5,height=8)
-  view(cn.relapse,pos=relapse.chr[,'Start_position'])
+  view(cn.relapse,pos=relapse.chr[,'Start_position'], rdep = rdep.relapse)
   dev.off()
   
   # save image file.
@@ -127,7 +127,7 @@ for(chr in c(4,7,11,14,17,20)){
   
   # Chromosomal view of QC'ed segmentation results.
   pdf(file=paste('falcon.relapse.qc.',chr,'.pdf',sep=''),width=5,height=8)
-  view(cn.relapse,pos=relapse.chr[,'Start_position'])
+  view(cn.relapse,pos=relapse.chr[,'Start_position'], rdep = rdep.relapse)
   dev.off()
   
   
@@ -218,7 +218,7 @@ for(chr in c(4,7,11,14,17,20)){
   
   # Chromosomal view of segmentation results.
   pdf(file=paste('falcon.primary.',chr,'.pdf',sep=''),width=5,height=8)
-  view(cn.primary,pos=primary.chr[,'Start_position'])
+  view(cn.primary,pos=primary.chr[,'Start_position'], rdep = rdep.primary)
   dev.off()
   
   # save image file.
@@ -252,7 +252,7 @@ for(chr in c(4,7,11,14,17,20)){
  
   # Chromosomal view of QC'ed segmentation results.
   pdf(file=paste('falcon.primary.qc.',chr,'.pdf',sep=''),width=5,height=8)
-  view(cn.primary,pos=primary.chr[,'Start_position'])
+  view(cn.primary,pos=primary.chr[,'Start_position'], rdep = rdep.primary)
   dev.off()
   
   
@@ -315,7 +315,7 @@ cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.prim
 
 # Chromosomal view of QC'ed segmentation results.
 pdf(file=paste('falcon.primary.qc.',chr,'.pdf',sep=''),width=5,height=8)
-view(cn.primary,pos=primary.chr[,'Start_position'])
+view(cn.primary,pos=primary.chr[,'Start_position'], rdep = rdep.primary)
 dev.off()
 
 source('falcon_demo/falcon.output.R') # Can be downloaded from
