@@ -89,7 +89,7 @@ for(chr in c(4,7,11,14,17,20)){
   ###############################
   
   tauhat.relapse=getChangepoints(readMatrix.relapse)
-  cn.relapse = getASCN(readMatrix.relapse, tauhat=tauhat.relapse, rdep = rdep.relapse)
+  cn.relapse = getASCN(readMatrix.relapse, tauhat=tauhat.relapse, rdep = rdep.relapse, threshold = 0.3)
   
   # Chromosomal view of segmentation results.
   pdf(file=paste('falcon.relapse.',chr,'.pdf',sep=''),width=5,height=8)
@@ -214,7 +214,7 @@ for(chr in c(4,7,11,14,17,20)){
   ###############################
   
   tauhat.primary=getChangepoints(readMatrix.primary)
-  cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary)
+  cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary, threshold = 0.3)
   
   # Chromosomal view of segmentation results.
   pdf(file=paste('falcon.primary.',chr,'.pdf',sep=''),width=5,height=8)
@@ -310,7 +310,7 @@ if(length(tauhat.primary)>0){
 
 tauhat.primary
 tauhat.primary=c(tauhat.primary,37821)
-cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary)
+cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary, threshold = 0.3)
 
 
 # Chromosomal view of QC'ed segmentation results.
