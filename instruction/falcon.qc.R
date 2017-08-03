@@ -36,7 +36,7 @@ falcon.qc = function(readMatrix, tauhat, cn, st_bp, end_bp, rdep=NULL, length.th
       }
     }
     tauhat=tauhat[tauhat.filter]
-    cn = getASCN(readMatrix, tauhat=tauhat, rdep = rdep) 
+    cn = getASCN(readMatrix, tauhat=tauhat, rdep = rdep, threshold = 0.3) 
   }
   return(list(tauhat=tauhat, cn=cn))
 }
