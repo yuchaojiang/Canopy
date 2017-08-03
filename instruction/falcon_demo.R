@@ -310,7 +310,7 @@ if(length(tauhat.primary)>0){
 
 tauhat.primary
 tauhat.primary=c(tauhat.primary,37821)
-cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary, threshold = 0.2)
+cn.primary = getASCN(readMatrix.primary, tauhat=tauhat.primary, rdep = rdep.primary, threshold = 0.3)
 
 
 # Chromosomal view of QC'ed segmentation results.
