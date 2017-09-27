@@ -2,9 +2,18 @@
 To generate allele-specific copy number calls, [Sequenza](https://CRAN.R-project.org/package=sequenza) or [FALCON](https://CRAN.R-project.org/package=falcon) can be used. Both methods require paired tumor normal samples as input.
 
 
+### FALCON-X (recommended)
+
+FALCON-X is for ASCN profiling with WES of one or more tumor samples, multiple (>=20) normal controls, which don't have to be matched.
+
+[FALCON-X demo code](https://github.com/yuchaojiang/Canopy/blob/master/instruction/falconx_demo.R)
+
+
 ### FALCON (recommended)
 
-[Demo code](https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon_demo.R)
+FALCON is for ASCN profiling with WGS of paired tumor normal samples.
+
+[FALCON demo code](https://github.com/yuchaojiang/Canopy/blob/master/instruction/falcon_demo.R)
 
 Above is demo code for applying Falcon to paired normal, primary tumor, and relapse genome of a neuroblatoma patient from [Eleveld et al. (Nature Genetics 2015)](http://www.nature.com/ng/journal/v47/n8/abs/ng.3333.html), provided by Drs. Derek Oldridge, Sharon Diskin, and John Maris. FALCON processes each chromosome separately and here we focus on chr14 of the relapse genome, where a copy-neutral loss of heterozygousity (LOH) event has been previous reported in the relapse. After QC procedure for data input and curation of segmentation output, the final plot as well as table output is below.
 
