@@ -51,6 +51,7 @@ reads=reads[pos.filter,]
 mymatrix=mymatrix[pos.filter,]
 Y=Y[pos.filter,]
 
+# normalization
 normObj=normalize2(Y,gc,K=1:3,normal_index=seq(1,77,2))
 choiceofK(normObj$AIC,normObj$BIC,normObj$RSS,K=1:3,filename=paste('choiceofK.',chr,'.pdf',sep=''))
 cat(paste('BIC is maximized at ',which.max(normObj$BIC),'.\n',sep=''))
@@ -67,7 +68,7 @@ dim(Yhat)  # total coverage bias returned by CODEX
 # Generate input for FALCON-X: allelic read depth and genotype across all loci
 #################################################################################
 
-n=39 # total number of samples
+n = 39 # total number of samples
 for (i in 1:n){
   cat('Generating input for sample',i,'...\n')
   ids = (4*i-3):(4*i)
@@ -119,7 +120,8 @@ cn = getASCN.x(readMatrix, biasMatrix, tauhat=tauhat, pos=ascn.input$pos, thresh
 # if this segment has different copy numbers on the two homologous chromosomes.
 view(cn, pos=ascn.input$pos)
 
-
+# Further curate Falcon-X's segmentation:
+# Remove small segments based on genomic locations and combine consecutive segments with similar ASCN profiles
 if(length(tauhat)>0){
   length.thres=10^6  # Threshold for length of segments, in base pair.
   delta.cn.thres=0.3  # Threshold of absolute copy number difference between consecutive segments.
