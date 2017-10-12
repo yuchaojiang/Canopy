@@ -8,7 +8,7 @@ library(falcon)
 # GATK or VarScan2.
 
 # The rda file can be downloaded at:
-# https://dl.dropboxusercontent.com/u/34105617/preprocessed.rda
+# https://www.dropbox.com/s/i4k6xxp5c0ajk6e/preprocessed.rda?dl=0
 load('preprocessed.rda')
 
 # calculate depth ratio (total read counts of tumor versus normal)
