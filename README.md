@@ -10,7 +10,7 @@ Accessing Intra-Tumor Heterogeneity and Tracking Longitudinal and Spatial Clonal
 Yuchao Jiang, Nancy R. Zhang
 
 ## Maintainer
-Yuchao Jiang <yuchaoj@upenn.edu>
+Yuchao Jiang <yuchaoj@email.unc.edu>
 
 
 ## Description
