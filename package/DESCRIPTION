@@ -2,9 +2,9 @@ Package: Canopy
 Type: Package
 Title: Accessing Intra-Tumor Heterogeneity and Tracking Longitudinal and Spatial
   Clonal Evolutionary History by Next-Generation Sequencing
-Version: 1.2.0
+Version: 1.3.0
 Author: Yuchao Jiang, Nancy R. Zhang
-Maintainer: Yuchao Jiang <yuchaoj@wharton.upenn.edu>
+Maintainer: Yuchao Jiang <yuchaoj@email.unc.edu>
 Description: A statistical framework and computational procedure for identifying
   the sub-populations within a tumor, determining the mutation profiles of each 
   subpopulation, and inferring the tumor's phylogenetic history. The input are 
@@ -18,6 +18,6 @@ Description: A statistical framework and computational procedure for identifying
   multiple evolutionary configurations consistent with the data, Canopy outputs 
   all configurations along with their confidence assessment.
 License: GPL-2
-Depends: R (>= 3.3), ape, fields, pheatmap, scatterplot3d
+Depends: R (>= 3.4), ape, fields, pheatmap, scatterplot3d
 Imports: grDevices, graphics, stats, utils
 URL: https://github.com/yuchaojiang/Canopy
