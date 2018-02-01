@@ -15,16 +15,16 @@ Yuchao Jiang <yuchaoj@email.unc.edu>
 
 ## Description
   A statistical framework and computational procedure for identifying
-  the sub-populations within a tumor, determining the mutation profiles of each 
-  subpopulation, and inferring the tumor's phylogenetic history. The input are 
-  variant allele frequencies (VAFs) of somatic single nucleotide alterations 
+  the sub-populations within a tumor, determining the mutation profiles of each
+  subpopulation, and inferring the tumor's phylogenetic history. The input are
+  variant allele frequencies (VAFs) of somatic single nucleotide alterations
   (SNAs) along with allele-specific coverage ratios between the tumor and matched
   normal sample for somatic copy number alterations (CNAs). These quantities can
-  be directly taken from the output of existing software. Canopy provides a 
-  general mathematical framework for pooling data across samples and sites to 
+  be directly taken from the output of existing software. Canopy provides a
+  general mathematical framework for pooling data across samples and sites to
   infer the underlying parameters. For SNAs that fall within CNA regions, Canopy
-  infers their temporal ordering and resolves their phase.  When there are 
-  multiple evolutionary configurations consistent with the data, Canopy outputs 
+  infers their temporal ordering and resolves their phase.  When there are
+  multiple evolutionary configurations consistent with the data, Canopy outputs
   all configurations along with their confidence assessment.
 
 
@@ -64,10 +64,10 @@ If you have any questions with the package, please feel free to post in our Goog
 
 It is HIGHLY recommended that the users read the common questions below carefully before applying Canopy and posting questions in the Google user group.
 
-* [How do I generate SNA and CNA input for Canopy?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_input.md)
+* [How do I generate SNA and CNA input for Canopy?](https://github.com/yuchaojiang/MARATHON/blob/master/instruction/SNA_CNA_choice.md)
 
 * [Which CNAs and SNAs should I use?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/SNA_CNA_choice.md)
- 
+
 * [How do I cluster the SNAs?](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
 
 * [What is matrix C? How do I deal with overlapping CNAs?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/overlapping_CNA.md)
@@ -77,4 +77,3 @@ It is HIGHLY recommended that the users read the common questions below carefull
 * [What if I only have SNA input?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/sampling_mode.md)
 
 * [How do I get cancer cell fractions (CCFs) for the SNAs?](https://github.com/yuchaojiang/Canopy/blob/master/instruction/CCF.md)
-
