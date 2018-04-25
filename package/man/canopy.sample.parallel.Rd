@@ -52,7 +52,7 @@ canopy.sample.parallel(R, X, WM, Wm, epsilonM, epsilonm, C=NULL,
     \code{\link{canopy.post}}}    
 }
 \value{
-List of sampleed trees in subtree space with different number of subclones.}
+List of sampleed trees in subtree space with different number of subclones;
 plot of posterior likelihoods in each subtree space generated (pdf format).}
 \author{
 Gene Urrutia \email{urrutia@email.unc.edu}
