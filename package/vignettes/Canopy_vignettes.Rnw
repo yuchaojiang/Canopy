@@ -389,7 +389,8 @@ epsilonM = toy$epsilonM; epsilonm = toy$epsilonm; Y = toy$Y
 K = 3:6; numchain = 10
 sampchain = canopy.sample(R = R, X = X, WM = WM, Wm = Wm, epsilonM = epsilonM, 
                           epsilonm = epsilonm, C = NULL, Y = Y, K = K, 
-                          numchain = numchain, simrun = 50000, writeskip = 200,
+                          numchain = numchain, max.simrun = 100000,
+                          min.simrun = 10000, writeskip = 200,
                           projectname = projectname, cell.line = FALSE,
                           plot.likelihood = TRUE)
 @
