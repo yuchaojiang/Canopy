@@ -49,10 +49,10 @@ install_github("yuchaojiang/Canopy/package")
 ## Demo Code & Vignettes
 * [Demo codes](https://github.com/yuchaojiang/Canopy/blob/master/demo_code)
 * [CRAN](https://cran.r-project.org/web/packages/Canopy/index.html)
-* [Vignettes](https://github.com/yuchaojiang/Canopy/blob/master/package/vignettes/Canopy_vignettes.pdf)
+* [Vignettes](https://cran.r-project.org/web/packages/Canopy/vignettes/Canopy_vignettes.pdf)
 * [SNA clustering](https://github.com/yuchaojiang/Canopy/edit/master/clustering)
 
-<!-- * [Vignettes](https://cran.r-project.org/web/packages/Canopy/vignettes/Canopy_vignettes.pdf) -->
+<!-- * [Vignettes](https://github.com/yuchaojiang/Canopy/blob/master/package/vignettes/Canopy_vignettes.pdf) -->
 
 ## Citation
 Jiang, Y., Qiu, Y., Minn, A.J. and Zhang, N.R., 2016. Assessing intratumor heterogeneity and tracking longitudinal and spatial clonal evolutionary history by next-generation sequencing. *Proceedings of the National Academy of Sciences*. [[html](http://www.pnas.org/content/113/37/E5528), [pdf](http://www.pnas.org/content/113/37/E5528.full.pdf)]
