@@ -175,8 +175,11 @@ canopy.sample.single.numi = function(numi, k, R, X, WM, Wm, epsilonM, epsilonm, 
     }
     samptree.lik[sampi]=tree$likelihood
     samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-    if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-        (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= 0.1)) break
+    if ((sampi >= min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-10000),1):max((sampi-1),1)])) &
+        (samptree.accept.rate[sampi] >= mean(samptree.accept.rate[max((sampi-10000),1):max((sampi-1),1)])) &
         (samptree.accept.rate[sampi] <= 0.1)) break
     sampi = sampi + 1
     ######## sample cna positions
@@ -199,8 +202,11 @@ canopy.sample.single.numi = function(numi, k, R, X, WM, Wm, epsilonM, epsilonm, 
     }
     samptree.lik[sampi]=tree$likelihood
     samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-    if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-        (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= 0.1)) break
+    if ((sampi >= min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-10000),1):max((sampi-1),1)])) &
+        (samptree.accept.rate[sampi] >= mean(samptree.accept.rate[max((sampi-10000),1):max((sampi-1),1)])) &
         (samptree.accept.rate[sampi] <= 0.1)) break
     sampi = sampi + 1
     ######## sample P (clonal proportions)
@@ -218,8 +224,11 @@ canopy.sample.single.numi = function(numi, k, R, X, WM, Wm, epsilonM, epsilonm, 
     }
     samptree.lik[sampi]=tree$likelihood
     samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-    if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-        (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= 0.1)) break
+    if ((sampi >= min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-10000),1):max((sampi-1),1)])) &
+        (samptree.accept.rate[sampi] >= mean(samptree.accept.rate[max((sampi-10000),1):max((sampi-1),1)])) &
         (samptree.accept.rate[sampi] <= 0.1)) break
     sampi = sampi + 1
     ######## sample major and minor copy number
@@ -240,8 +249,11 @@ canopy.sample.single.numi = function(numi, k, R, X, WM, Wm, epsilonM, epsilonm, 
     }
     samptree.lik[sampi]=tree$likelihood
     samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-    if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-        (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+    #     (samptree.accept.rate[sampi] <= 0.1)) break
+    if ((sampi >= min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-10000),1):max((sampi-1),1)])) &
+        (samptree.accept.rate[sampi] >= mean(samptree.accept.rate[max((sampi-10000),1):max((sampi-1),1)])) &
         (samptree.accept.rate[sampi] <= 0.1)) break
     sampi = sampi + 1
     ######## sample whether SNA falls in major or minor allele
@@ -262,8 +274,11 @@ canopy.sample.single.numi = function(numi, k, R, X, WM, Wm, epsilonM, epsilonm, 
       }
       samptree.lik[sampi]=tree$likelihood
       samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-      if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-          (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+      # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+      #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+      #     (samptree.accept.rate[sampi] <= 0.1)) break
+      if ((sampi >= min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-10000),1):max((sampi-1),1)])) &
+          (samptree.accept.rate[sampi] >= mean(samptree.accept.rate[max((sampi-10000),1):max((sampi-1),1)])) &
           (samptree.accept.rate[sampi] <= 0.1)) break
       sampi = sampi + 1
     }
