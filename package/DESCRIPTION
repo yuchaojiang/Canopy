@@ -18,6 +18,6 @@ Description: A statistical framework and computational procedure for identifying
   multiple evolutionary configurations consistent with the data, Canopy outputs 
   all configurations along with their confidence assessment.
 License: GPL-2
-Depends: R (>= 3.4), ape, fields, pheatmap, scatterplot3d, parallel
+Depends: R (>= 3.4), ape, fields, pheatmap, scatterplot3d, parallel, data.table, ggplot2, gridExtra
 Imports: grDevices, graphics, stats, utils
 URL: https://github.com/yuchaojiang/Canopy

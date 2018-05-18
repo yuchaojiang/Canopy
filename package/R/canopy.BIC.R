@@ -15,7 +15,7 @@ canopy.BIC = function(sampchain, projectname, K, numchain, burnin, thin,
     if(is.null(t)){t=0}
     numchain = length(sampchaink)
     # burn-in
-    if( (burnin + 1) > length(sampchaink[[numi]]) ) {
+    if( (burnin + 1) > length(sampchaink[[1]]) ) {
       stop("not enough trees after burn-in and thin; adjust parameters") 
     }
     samptreenew = sampchaink[[1]][(burnin + 1):length(sampchaink[[1]])]

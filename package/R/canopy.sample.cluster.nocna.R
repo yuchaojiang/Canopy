@@ -126,9 +126,9 @@ canopy.sample.cluster.nocna = function(R, X, sna_cluster, K, numchain,
                 }
                 samptree.lik[sampi]=tree$likelihood
                 samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-                if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-                    (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
-                    (samptree.accept.rate[sampi] <= 0.1)) break
+                # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+                #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+                #     (samptree.accept.rate[sampi] <= 0.1)) break
                 sampi = sampi + 1
                 ######## sample P (clonal proportions)
                 tree.new = tree
@@ -144,9 +144,9 @@ canopy.sample.cluster.nocna = function(R, X, sna_cluster, K, numchain,
                 }
                 samptree.lik[sampi]=tree$likelihood
                 samptree.accept.rate[sampi]=mean(samptree.accept[max(1,sampi-999):sampi])
-                if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
-                    (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
-                    (samptree.accept.rate[sampi] <= 0.1)) break
+                # if ((sampi >= 2*min.simrun) & (samptree.lik[sampi] <= mean(samptree.lik[max((sampi-1000),1):max((sampi-1),1)])) &
+                #     (samptree.accept.rate[sampi] <= mean(samptree.accept.rate[max((sampi-1000),1):max((sampi-1),1)])) &
+                #     (samptree.accept.rate[sampi] <= 0.1)) break
                 sampi = sampi + 1
             }
             sampchaink[[numi]] = samptree[1:(writei - 1)]

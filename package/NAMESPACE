@@ -1,12 +1,13 @@
 export(addsamptree, canopy.BIC, canopy.output, canopy.plottree,
        canopy.post, canopy.sample, canopy.sample.parallel, canopy.sample.single.numi, 
        canopy.sample.nocna, canopy.sample.cluster,
-       canopy.sample.cluster.nocna, canopy.cluster, canopy.cluster.Estep,
+       canopy.sample.cluster.nocna, canopy.simrun.diagnostic,
+       canopy.cluster, canopy.cluster.Estep,
        canopy.cluster.Mstep, getclonalcomposition, getCMCm, getCZ, 
        getlikelihood, getlikelihood.sna, getQ, getVAF, getZ, initialcna,
        initialcnacopy, initialP, initialsna, sampcna, sampcnacopy, sampP, 
        sampsna, sampsna.cluster, sortcna)
-import(ape, fields, pheatmap, scatterplot3d, parallel)
+import(ape, fields, pheatmap, scatterplot3d, parallel, data.table, ggplot2, gridExtra)
 importFrom("grDevices", "dev.off", "pdf")
 importFrom("graphics", "abline", "axis", "image", "layout", "par", "plot",
            "points", "text", "title")
