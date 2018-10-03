@@ -32,9 +32,9 @@ canopy.sample.parallel = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
   if (any(colSums(C) != 1)) {
     stop("Matrix C should have one and only one 1 for each column!")
   }
-  # if ( plot.likelihood){
-  #   pdf(file = paste(projectname, "_likelihood.pdf", sep = ""), width = 10, height = 5)
-  # }
+  if ( plot.likelihood){
+    pdf(file = paste(projectname, "_likelihood.pdf", sep = ""), width = 10, height = 5)
+  }
   
   sampname = colnames(R)
   sna.name = rownames(R)
