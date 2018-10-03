@@ -76,6 +76,10 @@ canopy.post = function (sampchain, projectname, K, numchain, burnin, thin,
                                                                     configi)]), 2)
     }
     minor.config = which(config.summary[, 2] < post.config.cutoff)
+    if(length(minor.config)==nrow(config.summary)){
+          message('No configuration has posterior probablity greater than the threshold!\nRun sampling longer or reduce the threshold.')
+          stop
+    }
     if (length(minor.config) > 0) {
         config.sel = rep(TRUE, length(config))
         for (i in minor.config) {
