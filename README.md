@@ -41,8 +41,7 @@ install.packages("fields")
 install.packages("pheatmap")
 install.packages("scatterplot3d")
 install.packages("devtools")
-library(devtools)
-install_github("yuchaojiang/Canopy/package")
+devtools::install_github("yuchaojiang/Canopy/package")
 ```
 
 
