@@ -6,7 +6,7 @@ canopy.cluster=function(R, X, num_cluster, num_run, Mu.init = NULL,
   
   #remove rows with zero or NA reference alleles for any sample
   zeroNARef = apply(X, 1, function(x) any(x==0 | is.na(x)))
-  if (any(zeroRef)){
+  if (any(zeroNARef)){
     cat("Removing variants with NA or zero total allele depth for any sample \n")
     R = R[!zeroNARef, ]
     X = X[!zeroNARef, ]
