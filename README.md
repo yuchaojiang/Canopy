@@ -29,7 +29,7 @@ Yuchao Jiang <yuchaoj@email.unc.edu>
 
 
 ## Installation
-* Install the current release from CRAN (updated every 3 months)
+* Install the current release from CRAN (not recommended)
 ```r
 install.packages('Canopy')
 ```
