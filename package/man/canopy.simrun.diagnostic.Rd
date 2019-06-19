@@ -32,5 +32,6 @@ Gene Urrutia \email{urrutia@email.unc.edu}
 \examples{
 
 canopy.simrun.diagnostic (sampchain, optK, K, writeskip, yRange = 100 )
+}
 
 \keyword{ package }
