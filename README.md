@@ -36,11 +36,7 @@ install.packages('Canopy')
 
 * Install the devel version from GitHub (installation/update from GitHub HIGHLY recommended)
 ```r
-install.packages("ape")
-install.packages("fields")
-install.packages("pheatmap")
-install.packages("scatterplot3d")
-install.packages("devtools")
+install.packages(c("ape", "fields", "pheatmap", "scatterplot3d", "devtools"))
 devtools::install_github("yuchaojiang/Canopy/package")
 ```
 
